@@ -65,16 +65,7 @@ private
   def fetch_jobs
     content = ""
     begin
-    # job/build, view, primaryView は省く
-    api_url = "#{api_url_for(:plugin)}/xml?depth=1" +
-              "&xpath=/hudson" +
-              "&exclude=/hudson/view" +
-              "&exclude=/hudson/primaryView" +
-              "&exclude=/hudson/job/build" +
-              "&exclude=/hudson/job/lastCompletedBuild" +
-              "&exclude=/hudson/job/lastStableBuild" +
-              "&exclude=/hudson/job/lastSuccessfulBuild"
-    content = HudsonApi.open(api_url, @settings.auth_user, @settings.auth_password)
+      content = HudsonApi.get_job_details(self.api_url_for(:plugin), @settings.auth_user, @settings.auth_password)
     rescue HudsonApiException => error
       raise error
     end

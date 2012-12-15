@@ -5,8 +5,21 @@ require 'net/http'
 
 class HudsonApi
 
-  def self.get_joblist(hudson_url, auth_user, auth_password)
+  def self.get_job_list(hudson_url, auth_user, auth_password)
     url = "#{hudson_url}/xml?depth=0"
+    HudsonApi.new.open url, auth_user, auth_password
+  end
+
+  def self.get_job_details(hudson_url, auth_user, auth_password)
+    # job/build, view, primaryView は省く
+    url = "#{hudson_url}/xml?depth=1" +
+          "&xpath=/hudson" +
+          "&exclude=/hudson/view" +
+          "&exclude=/hudson/primaryView" +
+          "&exclude=/hudson/job/build" +
+          "&exclude=/hudson/job/lastCompletedBuild" +
+          "&exclude=/hudson/job/lastStableBuild" +
+          "&exclude=/hudson/job/lastSuccessfulBuild"
     HudsonApi.new.open url, auth_user, auth_password
   end
 

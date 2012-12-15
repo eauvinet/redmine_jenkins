@@ -1,7 +1,7 @@
 # coding: utf-8
 
-Given /^HudsonApi.get_joblist returns "(.*?)"$/ do |response_name|
-  HudsonApi.should_receive(:get_joblist).at_least(:once).and_return(get_response("#{response_name}"))
+Given /^HudsonApi.get_job_list returns "(.*?)"$/ do |response_name|
+  HudsonApi.should_receive(:get_job_list).at_least(:once).and_return(get_response("#{response_name}"))
 end
 
 def get_response(name)

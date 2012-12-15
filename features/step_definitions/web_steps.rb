@@ -47,5 +47,5 @@ Then /^the field named "(.*?)" should (not be|be) checked$/ do |field, be_or_not
 end
 
 Then /^show me the page$/ do 
-  save_and_open_page
+  save_page
 end

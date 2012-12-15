@@ -13,13 +13,14 @@ Feature: index
   @current
   Scenario: If project has no Hudson settings, plugin show message
     When I go to Hudson at "eCookbook" Project
+    Then show me the page
     Then I should see "No settings for this project. Please confirm settings"
 
-    When I follow "confirm settings"
+    When I click "confirm settings"
     Then I should see "Settings"
 
     When I fill in "http://localhost:8080" for "settings[url]"
-     And I press "Save"
+     And I click "Save"
     Then the field named "settings[url]" should contain "http://localhost:8080/"
 
     When I go to Hudson at "eCookbook" Project

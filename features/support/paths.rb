@@ -18,7 +18,7 @@ module NavigationHelpers
       "/projects/#{$1.downcase}"
 
     when /Hudson at "(.*)" Project/
-      "/hudson/index/#{$1.downcase}"
+      "/projects/#{$1.downcase}/hudson/index"
 
     when /HudsonSettings at "(.*)" Project/
       "/projects/#{$1.downcase}/hudson_settings/edit"
