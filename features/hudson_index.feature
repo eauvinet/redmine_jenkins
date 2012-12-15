@@ -2,35 +2,16 @@
 Feature: index
   show hudson jobs with latest build results
 
-  Scenario: If 'Developer' don't have 'view_hudson' permission, Redmine don't show hudson tab on the menu
-    Given Project "eCookbook" uses "hudson" Plugin
-      And I log on as a User
-      And I select "English" as language
-      And I join "eCookbook" Project as a "Developer"
+  Background:
+    Given Project "eCookbook" uses "Hudson" Plugin
+      And "Developer" has a permission below:
+        | permissions         |
+        | View Hudson         |
+        | Edit Hudson settings|
+      And I am logged in as "dlopper" with password "foo"
 
-    When I go to "eCookbook" Project
-
-    Then I should not see "Hudson" within "#main-menu"
-
-  @wip
-  Scenario: If 'Developer' have 'view_hudson' permission, Redmine show hudson tab on the menu
-    Given Project "eCookbook" uses "hudson" Plugin
-      And "Developer" has a permission "view_hudson"
-      And I log on as a User
-      And I select "English" as language
-      And I join "eCookbook" Project as a "Developer"
-
-    When I go to "eCookbook" Project
-
-    Then I should see "Hudson" within "#main-menu"
-
-  @wip
+  @current
   Scenario: If project has no Hudson settings, plugin show message
-    Given Project "eCookbook" uses "hudson" Plugin
-      And "Developer" has a permission "view_hudson,edit_hudson_settings"
-      And I log on as a User
-      And I select "English" as language
-      And I join "eCookbook" Project as a "Developer"
     When I go to Hudson at "eCookbook" Project
     Then I should see "No settings for this project. Please confirm settings"
 

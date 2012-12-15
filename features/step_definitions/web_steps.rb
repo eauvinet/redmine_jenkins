@@ -19,8 +19,15 @@ When /^I check "([^"]*)"$/ do |field|
   check(field)
 end
 
-When /^I should see "([^"]*)"$/ do |content|
-  page.has_content?(content).should be_true
+When /^I (should|should not) see "([^"]*)"(| within "([^"]*)")$/ do |should_or_not, content, work, area|
+  area = "html" unless area
+  page.within(area) do
+    if should_or_not = "should"
+      has_content?(content).should be_true
+    else
+      has_content?(content).should_not be_true
+    end
+  end
 end
 
 Then /^the field named "(.*?)" should contain "(.*?)"$/ do |field, value|

@@ -15,7 +15,7 @@ module NavigationHelpers
       "/roles"
 
     when /^"(.*)" Project$/
-      "/projects/show/#{$1.downcase}"
+      "/projects/#{$1.downcase}"
 
     when /Hudson at "(.*)" Project/
       "/hudson/index/#{$1.downcase}"
