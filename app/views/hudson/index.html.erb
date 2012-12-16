@@ -64,7 +64,7 @@
 
     <ul class="build-artifacts-list" id="build-artifacts-list-<%="#{job.name}"%>" style="display:none;">
     <% job.latest_build.artifacts.each do |artifact| %>
-      <%="<li><a href='#{job.url_for(:user)}/#{job.latest_build.number}/artifact/#{artifact.relative_path}'>#{artifact.display_path}</a>"%>
+      <%= content_tag :li, link_to(artifact.display_path, "#{job.url_for(:user)}/#{job.latest_build.number}/artifact/#{artifact.relative_path}")%>
     <% end %>
     </ul>
 

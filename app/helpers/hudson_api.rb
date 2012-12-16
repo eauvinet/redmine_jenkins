@@ -7,19 +7,39 @@ class HudsonApi
 
   def self.get_job_list(hudson_url, auth_user, auth_password)
     url = "#{hudson_url}/xml?depth=0"
+
     HudsonApi.new.open url, auth_user, auth_password
   end
 
   def self.get_job_details(hudson_url, auth_user, auth_password)
-    # job/build, view, primaryView は省く
-    url = "#{hudson_url}/xml?depth=1" +
-          "&xpath=/hudson" +
-          "&exclude=/hudson/view" +
-          "&exclude=/hudson/primaryView" +
-          "&exclude=/hudson/job/build" +
-          "&exclude=/hudson/job/lastCompletedBuild" +
-          "&exclude=/hudson/job/lastStableBuild" +
-          "&exclude=/hudson/job/lastSuccessfulBuild"
+    url = "#{hudson_url}/xml?depth=1"
+    url << "&xpath=/hudson"
+    url << "&exclude=/hudson/view"
+    url << "&exclude=/hudson/primaryView"
+    url << "&exclude=/hudson/job/build"
+    url << "&exclude=/hudson/job/lastCompletedBuild"
+    url << "&exclude=/hudson/job/lastStableBuild"
+    url << "&exclude=/hudson/job/lastSuccessfulBuild"
+
+    HudsonApi.new.open url, auth_user, auth_password
+  end
+
+  def self.get_build_results(hudson_url, auth_user, auth_password)
+    url = "#{hudson_url}/xml/?depth=1"
+    url << "&exclude=//build/changeSet/item/path"
+    url << "&exclude=//build/changeSet/item/addedPath"
+    url << "&exclude=//build/changeSet/item/modifiedPath"
+    url << "&exclude=//build/changeSet/item/deletedPath"
+    url << "&exclude=//build/culprit"
+    url << "&exclude=//module"
+    url << "&exclude=//firstBuild&exclude=//lastBuild"
+    url << "&exclude=//lastCompletedBuild"
+    url << "&exclude=//lastFailedBuild"
+    url << "&exclude=//lastStableBuild"
+    url << "&exclude=//lastSuccessfulBuild"
+    url << "&exclude=//downstreamProject"
+    url << "&exclude=//upstreamProject"
+
     HudsonApi.new.open url, auth_user, auth_password
   end
 

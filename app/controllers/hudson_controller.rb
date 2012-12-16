@@ -23,7 +23,7 @@ class HudsonController < ApplicationController
     raise HudsonNoSettingsException if @hudson.settings.new_record?
 
     @hudson.fetch if Hudson.autofetch?
-       
+
     respond_to do |format|
       format.html {render :action => 'index', :layout => !request.xhr?}
       format.atom {render :layout => false, :template => 'hudson/index.atom.builder', :type => 'text/xml'} 

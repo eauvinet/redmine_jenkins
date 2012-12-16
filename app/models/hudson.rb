@@ -37,6 +37,7 @@ def initialize(project_id)
     return unless @hudson_api_errors.empty?
 
     fetch_buildresults
+
   rescue HudsonApiException => error
     @hudson_api_errors << HudsonApiError.new(self.class.name, "fetch", error)
   end

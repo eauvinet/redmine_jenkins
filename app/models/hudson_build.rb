@@ -116,6 +116,7 @@ class HudsonBuild < ActiveRecord::Base
     element.children.each do |child|
       next if child.is_a?(REXML::Text)
       next if "artifact" != child.name
+
       artifact = new_artifact(child)
       artifact.save
       self.artifacts << artifact

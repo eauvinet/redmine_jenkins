@@ -22,11 +22,18 @@ end
 When /^I (should|should not) see "([^"]*)"(| within "([^"]*)")$/ do |should_or_not, content, work, area|
   area = "html" unless area
   page.within(area) do
-    if should_or_not = "should"
+    if should_or_not == "should"
       has_content?(content).should be_true
     else
       has_content?(content).should_not be_true
     end
+  end
+end
+
+When /^I should see "([^"]*)" linked to "([^"]*)"(| within "([^"]*)")$/ do |content, link_url, work, area|
+  area = "html" unless area
+  page.within(area) do
+    find(:xpath, "//a[@href='#{link_url}' and text()='#{content}']")['href'].should == link_url
   end
 end
 
@@ -47,5 +54,9 @@ Then /^the field named "(.*?)" should (not be|be) checked$/ do |field, be_or_not
 end
 
 Then /^show me the page$/ do 
+  save_and_open_page
+end
+
+Then /^save the page$/ do
   save_page
 end
