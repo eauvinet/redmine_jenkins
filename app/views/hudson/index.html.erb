@@ -29,17 +29,17 @@
     </div>
 
     <div class="contextual latest-build" id='latest-build-<%=job.name%>'>
-      <%=job.latest_build.error if "" != job.latest_build.error%>
-      <% if "" == job.latest_build.error %>
-        <% if "" != job.latest_build.number %>
+      <%=job.latest_build.error if job.latest_build.error.present? %>
+      <% if job.latest_build.error.blank? %>
+        <% if job.latest_build.number.present? %>
           <%=image_tag 'document.png', :class=>'icon-build-history', :id=>"build-history-#{job.name}", :title=>l(:label_show_build_history)%>
           <%=image_tag("#{@hudson.settings.url}images/16x16/package.gif", :class=>"icon-build-artifacts", :id=>"build-artifacts-#{job.name}") unless job.latest_build.artifacts.empty? %>
-          <%=link_to "##{job.latest_build.number}", job.latest_build.url_for(:user)%>
-          <%=content_tag("span", job.latest_build.result, :class => "result #{job.latest_build.result.downcase}") if true != job.latest_build.building? && "" != job.latest_build.result%>
+          <%=link_to "##{job.latest_build.number}", job.latest_build.url_for(:user), class: 'number' %>
+          <%=content_tag("span", job.latest_build.result, :class => "result #{job.latest_build.result.downcase}") if true != job.latest_build.building? && job.latest_build.result.present? %>
           <%=content_tag("span", l(:notice_building), :class => "result") if job.latest_build.building? %>
           <% today_tag = "" %>
           <% today_tag = " " + image_tag("today.png", :plugin => "redmine_hudson", :title => l(:label_todays_build)) if is_today?(job.latest_build.finished_at) %>
-          <%=content_tag("span", job.latest_build.finished_at.localtime.strftime("%Y/%m/%d %H:%M:%S")) + today_tag if job.latest_build.finished_at %>
+          <%=content_tag("span", job.latest_build.finished_at.localtime.strftime("%Y/%m/%d %H:%M:%S"), class: 'finished-at') + today_tag if job.latest_build.finished_at %>
         <% end %>
         <%=l(:notice_no_builds) if "" == job.latest_build.number%>
       <% end %>

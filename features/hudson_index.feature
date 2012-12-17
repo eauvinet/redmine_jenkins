@@ -37,5 +37,14 @@ Feature: index
 
     When  I go to Hudson at "eCookbook" Project
     Then  I should see "simple-ruby-application" within "#job-state-simple-ruby-application"
-     And  I should see "app" linked to "http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/source/app.rb"
-     And  I should see "readme" linked to "http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/readme.rdoc"
+     And  I should see latest build of "simple-ruby-application":
+      | number | result  | finished at         |
+      | 3      | SUCCESS | 2009/07/19 20:33:35 |
+     And  I should see health reports of "simple-ruby-application":
+      | description                                                |
+      | 安定したビルド: 最近の5個中、2個ビルドに失敗しました。 59% |
+      | Rcov coverage: Code coverage 70.0%(70.0) 87%               |
+     And  I should see artifacts of "simple-ruby-application":
+      | item   | url |
+      | app    | http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/source/app.rb |
+      | readme | http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/readme.rdoc |

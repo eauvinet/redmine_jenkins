@@ -27,7 +27,7 @@ end
 
 When /^I fill in job settings:$/ do |table|
   table.hashes.each_with_index do |hash, index|
-    job_index = index + 1 
+    job_index = index + 1
     job_name = hash["Name"]
 
     set_checked "settings_jobs_#{job_name}", hash["Enable"]
@@ -62,7 +62,7 @@ Then /^I should see job settings:$/ do |job_list|
       index = index + 1
     end
     row
-  end 
+  end
 
   job_list.diff!(actual)
 end
