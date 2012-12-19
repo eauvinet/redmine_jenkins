@@ -3,7 +3,10 @@
 <job>
     <action/>
     <displayName>simple-ruby-application</displayName>
-    <description>Ruby Small Application</description>
+    <description>
+    here is simple ruby application description.&lt;br/&gt;
+    this line is multi line test.
+    </description>
     <name>simple-ruby-application</name>
     <url>http://noauth.onejob.nohealthreport.local:9090/job/simple-ruby-application/</url>
     <buildable>true</buildable>

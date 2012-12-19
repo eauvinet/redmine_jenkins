@@ -1,6 +1,9 @@
 <freeStyleProject>
 <action/>
-<description>simple-ruby-application</description>
+<description>
+  here is simple ruby application description.&lt;br/&gt;
+  this line is multi line test.
+</description>
 <displayName>simple-ruby-application</displayName>
 <name>simple-ruby-application</name>
 

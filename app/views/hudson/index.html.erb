@@ -39,7 +39,7 @@
           <%=content_tag("span", l(:notice_building), :class => "result") if job.latest_build.building? %>
           <% today_tag = "" %>
           <% today_tag = " " + image_tag("today.png", :plugin => "redmine_hudson", :title => l(:label_todays_build)) if is_today?(job.latest_build.finished_at) %>
-          <%=content_tag("span", job.latest_build.finished_at.localtime.strftime("%Y/%m/%d %H:%M:%S"), class: 'finished-at') + today_tag if job.latest_build.finished_at %>
+          <%=content_tag("span", job.latest_build.finished_at.localtime.strftime("%Y/%m/%d %H:%M:%S"), class: 'finished-at') + today_tag.html_safe if job.latest_build.finished_at %>
         <% end %>
         <%=l(:notice_no_builds) if "" == job.latest_build.number%>
       <% end %>
@@ -50,14 +50,20 @@
     <% icon_base_class = "icon" if @hudson.settings.look_and_feel == 'Plugin' %>
     <h3 class="<%=icon_base_class%> icon-<%=job.state%>"><%=link_to job.name, job.url_for(:user)%></h3>
       <div class="wiki job-description">
-        <%= textilizable job.description if Hudson.job_description_format == "textile"%>
-        <%=raw job.description unless Hudson.job_description_format == "textile" %>
+        <% if Hudson.job_description_format == "textile" %>
+          <%= textilizable job.description %>
+        <% else %>
+          <%= raw job.description %>
+        <% end %>
       </div>
 
       <ul class="job-health-reports">
         <% job.health_reports.each do |report| %>
-          <%= content_tag :li, "#{link_to(report.description, report.url)} #{report.score}%".html_safe if report.url != ""%>
-          <%= content_tag :li, "#{report.description} #{report.score}%" if report.url == ""%>
+          <% if report.url.present? %>
+            <%= content_tag :li, "#{link_to(report.description, report.url)} #{report.score}%".html_safe %>
+          <% else %>
+            <%= content_tag :li, "#{report.description} #{report.score}%" %>
+          <% end %>
         <% end %>
       </ul>
     </div>

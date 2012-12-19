@@ -1,4 +1,10 @@
 
+Then /^I should see job description of "([^"]*?)":$/ do |job_name, description|
+  # FIXME can't compare crlf...
+  description = description.gsub(/\r\n/, " ")
+  find("div#job-state-#{job_name} div.job-description").text.should eq(description)
+end
+
 Then /^I should see latest build of "([^"]*?)":$/ do |job_name, table|
 
   exp_number      = table.hashes[0]['number']
