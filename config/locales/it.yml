@@ -47,6 +47,7 @@ it:
   notice_no_builds: Nessuna Builds
 
   notice_building: Compilando...
+  notice_build_accepted: Build Accepted.
   notice_hudson_url: 'con http://, https:// ...'
   notice_get_build_details: Rimuovi spunta, se ci mette molto tempo.
   notice_health_report: Fornisci un link ad Hudson, se il plugin trova la keyword nell'Helth Report.
@@ -62,7 +63,7 @@ it:
   notice_err_no_job : 'job non trovato [{{value}}]'
   notice_err_unknown: 'Errore sconosciuto {{value}}'
 
-  notice_err_build_failed: 'Build fallita {{value}}'
+  notice_err_build_failed: 'Build fallita.'
   notice_err_build_failed_no_job: 'Build faillita. Job non trovato [{{value}}]'
 
   permission_view_hudson: View Hudson

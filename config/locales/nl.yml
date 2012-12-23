@@ -47,6 +47,7 @@ nl:
   notice_no_builds: Geen Builds
 
   notice_building: Nu aan het Building...
+  notice_build_accepted: Build Accepted.
   notice_hudson_url: 'met http://, https:// ...'
   notice_get_build_details: Vink uit, als het veel tijd neemt.
   notice_health_report: Geeft een link naar Hudson, als de plugin het keyword vind in Health Report.
@@ -62,7 +63,7 @@ nl:
   notice_err_no_job : 'job niet gevonden [%1s]'
   notice_err_unknown: 'Onbekende fout %1s'
 
-  notice_err_build_failed: 'Build gefaald %1s'
+  notice_err_build_failed: 'Build gefaald.'
   notice_err_build_failed_no_job: 'Build gefaald. Job niet gevonden [%1s]'
 
   permission_view_hudson: Zie Hudson

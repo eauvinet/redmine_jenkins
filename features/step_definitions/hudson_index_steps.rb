@@ -1,6 +1,6 @@
 
 When /^I click "([^"]*)" icon of "([^"]*)"$/ do |text, job_name|
-  find(:xpath, "id('latest-build-#{job_name}')/img[@title='#{text}']").click
+  find(:xpath, "//img[contains(@id, '-#{job_name}') and @title='#{text}']").click
 end
 
 Then /^I should see job description of "([^"]*?)":$/ do |job_name, description|

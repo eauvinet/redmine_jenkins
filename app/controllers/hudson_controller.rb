@@ -50,15 +50,15 @@ class HudsonController < ApplicationController
     job.request_build
 
   rescue HudsonNoSettingsException
-    render :text => t(:notice_err_build_failed, :description => :notice_err_no_settings)
+    render :text => "NG:#{params[:name]} #{t(:notice_err_no_settings)}"
   rescue HudsonNoJobException
-    render :text => t(:notice_err_build_failed_no_job, :job_name => params[:name])
+    render :text => "NG:#{params[:name]} #{t(:notice_err_no_job, :job_name => params[:name])}"
   else
     if job.hudson_api_errors.empty?
-      render :text => "#{params[:name]} #{t :build_accepted}"
+      render :text => "OK:#{params[:name]}"
     else
       api_error_messages = hudson_api_errors_to_messages(job.hudson_api_errors)
-      render :text => api_error_messages.join("<br>")
+      render :text => "NG:#{params[:name]} #{api_error_messages.join("<br>")}"
     end
   end
 

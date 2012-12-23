@@ -47,6 +47,7 @@ es:
   notice_no_builds: Sin ejecuciones
 
   notice_building: Ahora en ejecución...
+  notice_build_accepted: Build Accepted.
   notice_hudson_url: 'con http://, https:// ...'
   notice_get_build_details: Deshabilitar la marca, si toma demasiado tiempo.
   notice_health_report: Proporcionar un enlace a Hudson, si el plugin encuentra una palabra clave en el informe de salud.
@@ -62,7 +63,7 @@ es:
   notice_err_no_job : 'tarea no encontrada [{{value}}]'
   notice_err_unknown: 'Unknown Error {{value}}'
 
-  notice_err_build_failed: 'Ejecución fallida {{value}}'
+  notice_err_build_failed: 'Ejecución fallida'
   notice_err_build_failed_no_job: 'Ejecución fallida. Tarea no encontrada [{{value}}]'
 
   permission_view_hudson: View Hudson

@@ -112,7 +112,7 @@ class HudsonJob < ActiveRecord::Base
   def request_build
     clear_hudson_api_errors
     api_url = build_url_for(:plugin)
-    HudsonApi.open(api_url, self.settings.auth_user, self.settings.auth_password)
+    HudsonApi.request_build(api_url, self.settings.auth_user, self.settings.auth_password)
   rescue HudsonApiException => error
     @hudson_api_errors << HudsonApiError.new(self.class.name, "request_build '#{self.name}'", error)
   end

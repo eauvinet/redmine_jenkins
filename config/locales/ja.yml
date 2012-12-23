@@ -48,6 +48,7 @@ ja:
   notice_no_builds: ビルドは実行されていません。
 
   notice_building: ビルド中です。
+  notice_build_accepted: ビルドを受け付けました。
   notice_hudson_url: 'http://, https:// から記述してください'
   notice_get_build_details: 表示に時間がかかる場合は、チェックを外してください
   notice_health_report: ヘルスレポートの中に指定した文字を見つけたら、Hudson へのリンクを作成します
@@ -63,7 +64,7 @@ ja:
   notice_err_no_job : 'Jobが見当たりません。[{{value}}]'
   notice_err_unknown: 'エラーが発生しました。{{value}}'
 
-  notice_err_build_failed: 'ビルドに失敗しました。{{value}}'
+  notice_err_build_failed: 'ビルドに失敗しました。'
   notice_err_build_failed_no_job: 'ビルドに失敗しました。Jobが見当たりません。[{{value}}]'
 
   permission_view_hudson: Hudsonの閲覧

@@ -47,6 +47,7 @@ fr:
   notice_no_builds: Aucune Execution
 
   notice_building: Execution en cours...
+  notice_build_accepted: Build Accepted.
   notice_hudson_url: 'avec http://, https:// ...'
   notice_get_build_details: A Désactiver, si cela prend trop de temps.
   notice_health_report: Construit un liens vers Hudson, si le Plugin trouve un Mot Clef dans le Rapport de Santé.
@@ -62,7 +63,7 @@ fr:
   notice_err_no_job : 'Tâche introuvable [{{value}}]'
   notice_err_unknown: 'Inconnu erreur {{value}}'
 
-  notice_err_build_failed: 'Construction Echouée {{value}}'
+  notice_err_build_failed: 'Construction Echouée.'
   notice_err_build_failed_no_job: 'Construction Echouée. Tâche Introuvable [{{value}}]'
 
   permission_view_hudson: View Hudson

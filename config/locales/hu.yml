@@ -47,6 +47,7 @@ hu:
   notice_no_builds: Nincsenek fordított változatok
 
   notice_building: Most fordul...
+  notice_build_accepted: Build Accepted.
   notice_hudson_url: 'with http://, https:// ...'
   notice_get_build_details: Take the checkmark off, if take a lot of time.
   notice_health_report: Provide a link to Hudson, if plugin find keyword in Health Report.
@@ -62,7 +63,7 @@ hu:
   notice_err_no_job : 'feladatot nem találom [{{value}}]'
   notice_err_unknown: 'hiba {{value}}'
 
-  notice_err_build_failed: 'Sikertelen fordítás {{value}}'
+  notice_err_build_failed: 'Sikertelen fordítás'
   notice_err_build_failed_no_job: 'Sikertelen fordítás. Feladatot nem találtam [{{value}}]'
 
   permission_view_hudson: View Hudson

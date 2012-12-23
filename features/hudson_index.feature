@@ -8,6 +8,7 @@ Feature: index
         | permissions         |
         | View Hudson         |
         | Edit Hudson settings|
+        | Build Hudson        |
       And I am logged in as "dlopper" with password "foo"
 
     Given HudsonApi.get_job_list returns "simple/hudson_job-list"
@@ -36,8 +37,17 @@ Feature: index
       | 安定したビルド: 最近の5個中、2個ビルドに失敗しました。 59% |
       | Rcov coverage: Code coverage 70.0%(70.0) 87%               |
 
-  @javascript @current
-  Scenario: click note icon, plugin show build history
+  @javascript
+  Scenario: click package icon, plugin show build artifacts
+    When  I go to Hudson at "eCookbook" Project
+    When  I click "Show Build Artifacts" icon of "simple-ruby-application"
+    Then  I should see artifacts of "simple-ruby-application":
+      | item   | url |
+      | app    | http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/source/app.rb |
+      | readme | http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/readme.rdoc |
+
+  @javascript
+  Scenario: click document icon, plugin show build history
     Given HudsonApi.get_recent_builds returns "simple/job_simple-ruby-application_rssAll"
     When  I go to Hudson at "eCookbook" Project
     Then  I should see "simple-ruby-application" within "#job-state-simple-ruby-application h3"
@@ -47,8 +57,10 @@ Feature: index
       | #3     | SUCCESS | 2009/07/20 21:35:15 |
       | #2     | SUCCESS | 2009/07/19 20:35:15 |
       | #1     | FAILURE | 2009/07/19 19:13:15 |
-    When  I click "Show Build Artifacts" icon of "simple-ruby-application"
-     And  I should see artifacts of "simple-ruby-application":
-      | item   | url |
-      | app    | http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/source/app.rb |
-      | readme | http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/readme.rdoc |
+
+  @javascript @current
+  Scenario: click build icon, plugin request build and show result
+    Given HudsonApi.request_build returns "simple/job_simple-ruby-application_build_result"
+    When  I go to Hudson at "eCookbook" Project
+    When  I click "Build Now" icon of "simple-ruby-application"
+    Then  I should see "Build Accepted. - simple-ruby-application" within "#info"

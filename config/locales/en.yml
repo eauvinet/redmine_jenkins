@@ -47,6 +47,7 @@ en:
   notice_no_builds: No Builds
 
   notice_building: Now Building...
+  notice_build_accepted: Build Accepted.
   notice_hudson_url: 'with http://, https:// ...'
   notice_get_build_details: Take the checkmark off, if take a lot of time.
   notice_health_report: Provide a link to Hudson, if plugin find keyword in Health Report.
@@ -62,7 +63,7 @@ en:
   notice_err_no_job : 'job not found [%{job_name}]'
   notice_err_unknown: 'Unknown Error {%{description}}'
 
-  notice_err_build_failed: 'Build failed %{description}'
+  notice_err_build_failed: 'Build failed.'
   notice_err_build_failed_no_job: 'Build failed. Job not found [%{job_name}]'
 
   permission_view_hudson: View Hudson

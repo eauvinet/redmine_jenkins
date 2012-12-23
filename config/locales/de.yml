@@ -47,7 +47,8 @@ de:
   notice_no_builds: Keine Builds vorhanden
 
   notice_building: Build wird ausgeführt...
-  notice_bAuhaus_url: 'mit http://, https:// ...'
+  notice_build_accepted: Build Accepted.
+  notice_hudson_url: 'mit http://, https:// ...'
   notice_get_build_details: Diese Option sollte abschaltet werden falls der Anzeigeaufbau zu lange dauert.
   notice_health_report: Einen Link anzeigen wenn im Build Statusbericht ein Schlüsselwort gefunden wird.
   notice_health_report_setting: 'Wenn das Schlüsselwort - ${keyword} im Build Statusbericht gefunden wird, einen Link zum Build Job ${url_format} einfügen'
@@ -62,7 +63,7 @@ de:
   notice_err_no_job : 'Der Job [{{value}}] wurde nicht gefunden.'
   notice_err_unknown: 'Unknown Fehler {{value}}'
 
-  notice_err_build_failed: 'Build fehlgeschlagen [{{value}}].'
+  notice_err_build_failed: 'Build fehlgeschlagen.'
   notice_err_build_failed_no_job: 'Build fehlgeschlagen. Der Job [{{value}}] wurde nicht gefunden.'
 
   permission_view_bAuhaus: Build jobs sehen
