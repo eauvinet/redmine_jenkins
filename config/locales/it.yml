@@ -12,6 +12,7 @@ it:
   label_update_jobs: Aggiorna Jobs
   label_build_now: Esegui Build ora
   label_show_build_history: Mostra Cronologia delle Build
+  label_show_build_artifacts: Show Build Artifacts
   label_show_compact: Mostra Compatto
   label_health_report_build_stability: HealthReport:BuildStability
   label_health_report_test_result: HealthReport:TestResult

@@ -12,6 +12,7 @@ de:
   label_update_jobs: Jobs
   label_build_now: Build ausführen
   label_show_build_history: Build Verlauf anzeigen
+  label_show_build_artifacts: Show Build Artifacts
   label_show_compact: Kompaktdarstellung
   label_health_report_build_stability: Statusbericht:Build-Stabilität
   label_health_report_test_result: Statusbericht:Testergebnisse

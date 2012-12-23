@@ -12,6 +12,7 @@ es:
   label_update_jobs: Actualizar tareas
   label_build_now: Ejecutar ahora
   label_show_build_history: Mostrar historial de ejecución
+  label_show_build_artifacts: Show Build Artifacts
   label_show_compact: Mostrar resumen
   label_health_report_build_stability: InformeSalud:EstabilidadEjecución
   label_health_report_test_result: InformeSalud:ResultadoPruebas

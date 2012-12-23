@@ -12,6 +12,7 @@ ru:
   label_update_jobs: Обновить задачи
   label_build_now: Собрать сейчас
   label_show_build_history: Показать историю сборок
+  label_show_build_artifacts: Show Build Artifacts
   label_show_compact: Отображать компактно
   label_health_report_build_stability: Стабильность сборок
   label_health_report_test_result: Результаты тестов

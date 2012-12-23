@@ -1,24 +1,30 @@
 (function(jQuery) {
   jQuery.fn.buildHistoryController = function(options){
-    function showBuildHistory(icon, text) {
+    var options = jQuery.extend({
+      url: ''
+    }, options);
+
+    function showBuildHistory(icon, htmlText) {
       var target = jQuery("#build-history");
-      target.html(text);
+      target.html(htmlText);
       target.css("top", icon.position().top + icon.height() + 5 + "px");
       target.css("left", icon.position().left + 2 + "px");
       target.fadeIn("normal");
     }
 
-    var options = jQuery.extend({
-      url: ''
-    }, options);
-
-    $("body").click(function() {
-      if ( jQuery(this).parent("#build-history").length > 0 ) {
+    $("body").click(function(e) {
+      if (jQuery(e.target).attr("class") == "icon-build-history") {
         return;
       }
-
+      myParents = jQuery(e.target).parents().map(function() {
+        return jQuery(this).attr("id");
+      });
+      if (jQuery.inArray("build-history", myParents) >= 0) {
+        return;
+      }
       jQuery("#build-history").fadeOut("fast");
     });
+
 
     return this.each(function(i, elem) {
       jQuery(elem).click(function() {

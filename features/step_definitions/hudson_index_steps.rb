@@ -38,7 +38,9 @@ end
 
 Then /^I should see artifacts of "([^"]*?)":$/ do |job_name, table|
 
-  actual = all("#build-artifacts-list-#{job_name} li").map do |li|
+  page.should have_selector("#build-artifacts-list", visible: true)
+
+  actual = all("#build-artifacts-list ul li").map do |li|
     anchor = li.find("a")
     # FIXME: should not use native object..
     [anchor.native.text, anchor['href']]
@@ -49,7 +51,7 @@ Then /^I should see artifacts of "([^"]*?)":$/ do |job_name, table|
 
 end
 
-Then /^I should see build history$/ do |histories|
+Then /^I should see build history:$/ do |histories|
   # wait until build-history element is shown
   page.should have_selector("#build-history", visible: true)
 

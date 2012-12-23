@@ -36,18 +36,19 @@ Feature: index
       | description                                                |
       | 安定したビルド: 最近の5個中、2個ビルドに失敗しました。 59% |
       | Rcov coverage: Code coverage 70.0%(70.0) 87%               |
-     And  I should see artifacts of "simple-ruby-application":
-      | item   | url |
-      | app    | http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/source/app.rb |
-      | readme | http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/readme.rdoc |
 
   @javascript @current
   Scenario: click note icon, plugin show build history
     When  I go to Hudson at "eCookbook" Project
     Then  I should see "simple-ruby-application" within "#job-state-simple-ruby-application h3"
     When  I click "Show Build History" icon of "simple-ruby-application"
-    Then  I should see build history
+    Then  I should see build history:
       | number | result  | published at |
       | #3     | SUCCESS | 2009/07/20 21:35:15 |
       | #2     | SUCCESS | 2009/07/19 20:35:15 |
       | #1     | FAILURE | 2009/07/19 19:13:15 |
+    When  I click "Show Build Artifacts" icon of "simple-ruby-application"
+     And  I should see artifacts of "simple-ruby-application":
+      | item   | url |
+      | app    | http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/source/app.rb |
+      | readme | http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/readme.rdoc |

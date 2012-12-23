@@ -12,6 +12,7 @@ fr:
   label_update_jobs: Mise à jour Liste des Tâches
   label_build_now: Construire Maintenant
   label_show_build_history: Montrer Historique des Constructions
+  label_show_build_artifacts: Show Build Artifacts
   label_show_compact: Montrer Vue Compacte
   label_health_report_build_stability: HealthReport:BuildStability
   label_health_report_test_result: HealthReport:TestResult

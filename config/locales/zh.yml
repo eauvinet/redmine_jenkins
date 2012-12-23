@@ -12,6 +12,7 @@ zh:
   label_update_jobs: 最新更新的任务
   label_build_now: 正在生成
   label_show_build_history: 显示历史记录
+  label_show_build_artifacts: Show Build Artifacts
   label_show_compact: 简洁显示
   label_health_report_build_stability: 项目健康报告:成功率
   label_health_report_test_result: 项目健康报告:测试结果
