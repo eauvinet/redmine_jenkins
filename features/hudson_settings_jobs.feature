@@ -7,7 +7,7 @@ Feature: Show and Edit Hudson Job Settings
         | View Hudson         |
         | Edit Hudson settings|
      And  I am logged in as "dlopper" with password "foo"
-     And  HudsonApi.get_job_list returns "simple-ruby-application_fetch-job_depth0"
+     And  HudsonApi.get_job_list returns "simple/hudson_job-list"
     When  I go to HudsonSettings at "eCookbook" Project
     Then  I should see "Settings"
 

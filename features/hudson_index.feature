@@ -13,7 +13,6 @@ Feature: index
     Given HudsonApi.get_job_list returns "simple/hudson_job-list"
      And  HudsonApi.get_job_details returns "simple/hudson_job-details"
      And  HudsonApi.get_build_results returns "simple/job_simple-ruby-application_build_results"
-     And  HudsonApi.get_recent_builds returns "simple/job_simple-ruby-application_rssAll"
 
     When  I go to HudsonSettings at "eCookbook" Project
      And  I fill in "http://localhost:8080" for "settings[url]"
@@ -39,6 +38,7 @@ Feature: index
 
   @javascript @current
   Scenario: click note icon, plugin show build history
+    Given HudsonApi.get_recent_builds returns "simple/job_simple-ruby-application_rssAll"
     When  I go to Hudson at "eCookbook" Project
     Then  I should see "simple-ruby-application" within "#job-state-simple-ruby-application h3"
     When  I click "Show Build History" icon of "simple-ruby-application"
