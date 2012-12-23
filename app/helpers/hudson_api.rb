@@ -43,6 +43,11 @@ class HudsonApi
     HudsonApi.new.open url, auth_user, auth_password
   end
 
+  def self.get_recent_builds(hudson_url, auth_user, auth_password)
+
+    HudsonApi.new.open hudson_url, auth_user, auth_password
+  end
+
   def open(uri, auth_user, auth_password)
 
     begin

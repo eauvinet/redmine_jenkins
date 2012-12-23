@@ -120,7 +120,7 @@ class HudsonJob < ActiveRecord::Base
   def fetch_recent_builds
     clear_hudson_api_errors
     api_uri = rss_url_for(:plugin)
-    content = HudsonApi.open(api_uri, self.settings.auth_user, self.settings.auth_password)
+    content = HudsonApi.get_recent_builds(api_uri, self.settings.auth_user, self.settings.auth_password)
 
     doc = REXML::Document.new content
     retval = []

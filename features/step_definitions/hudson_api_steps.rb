@@ -1,15 +1,7 @@
 # coding: utf-8
 
-Given /^HudsonApi.get_job_list returns "(.*?)"$/ do |response_name|
-  HudsonApi.should_receive(:get_job_list).at_least(:once).and_return(get_response("#{response_name}"))
-end
-
-Given /^HudsonApi.get_job_details returns "(.*?)"$/ do |response_name|
-  HudsonApi.should_receive(:get_job_details).at_least(:once).and_return(get_response("#{response_name}"))
-end
-
-Given /^HudsonApi.get_build_results returns "(.*?)"$/ do |response_name|
-  HudsonApi.should_receive(:get_build_results).at_least(:once).and_return(get_response("#{response_name}"))
+Given /^HudsonApi.([a-zA-Z0-9_].*?) returns "(.*?)"$/ do |method, response_name|
+  HudsonApi.should_receive(method.to_sym).at_least(:once).and_return(get_response("#{response_name}"))
 end
 
 def get_response(name)

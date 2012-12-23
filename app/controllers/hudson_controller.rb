@@ -64,7 +64,7 @@ class HudsonController < ApplicationController
 
   def history
     raise HudsonNoSettingsException if @hudson.settings.new_record?
-    raise HudsonNoJobException unless @hudson.settings.job_include?(params[:name]) # ちょっと強引だけど、見えない設定のジョブはないものとみなす
+    raise HudsonNoJobException unless @hudson.settings.job_include?(params[:name])
 
     job = @hudson.get_job(params[:name])
 

@@ -13,6 +13,7 @@ Feature: index
     Given HudsonApi.get_job_list returns "simple/hudson_job-list"
      And  HudsonApi.get_job_details returns "simple/hudson_job-details"
      And  HudsonApi.get_build_results returns "simple/job_simple-ruby-application_build_results"
+     And  HudsonApi.get_recent_builds returns "simple/job_simple-ruby-application_rssAll"
 
     When  I go to HudsonSettings at "eCookbook" Project
      And  I fill in "http://localhost:8080" for "settings[url]"
@@ -20,11 +21,9 @@ Feature: index
      And  I check "settings_jobs_simple-ruby-application"
      And  I click "Save"
 
-  @current
   Scenario: Plugin can show job full details
     When  I go to Hudson at "eCookbook" Project
     Then  I should see "simple-ruby-application" within "#job-state-simple-ruby-application h3"
-     And  save the page
      And  I should see job description of "simple-ruby-application":
       """
       here is simple ruby application description.
@@ -41,3 +40,14 @@ Feature: index
       | item   | url |
       | app    | http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/source/app.rb |
       | readme | http://localhost:8080/job/simple-ruby-application/3/artifact/SimpleRubyApplication/readme.rdoc |
+
+  @javascript @current
+  Scenario: click note icon, plugin show build history
+    When  I go to Hudson at "eCookbook" Project
+    Then  I should see "simple-ruby-application" within "#job-state-simple-ruby-application h3"
+    When  I click "Show Build History" icon of "simple-ruby-application"
+    Then  I should see build history
+      | number | result  | published at |
+      | #3     | SUCCESS | 2009/07/20 21:35:15 |
+      | #2     | SUCCESS | 2009/07/19 20:35:15 |
+      | #1     | FAILURE | 2009/07/19 19:13:15 |

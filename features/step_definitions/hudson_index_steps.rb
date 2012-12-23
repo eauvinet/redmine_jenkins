@@ -1,4 +1,8 @@
 
+When /^I click "([^"]*)" icon of "([^"]*)"$/ do |text, job_name|
+  find(:xpath, "id('latest-build-#{job_name}')/img[@title='#{text}']").click
+end
+
 Then /^I should see job description of "([^"]*?)":$/ do |job_name, description|
   # FIXME can't compare crlf...
   description = description.gsub(/\r\n/, " ")
@@ -43,4 +47,16 @@ Then /^I should see artifacts of "([^"]*?)":$/ do |job_name, table|
 
   table.diff!(actual)
 
+end
+
+Then /^I should see build history$/ do |histories|
+  # wait until build-history element is shown
+  page.should have_selector("#build-history", visible: true)
+
+  actual = find("#build-history").all(".build-entry").map do |entry|
+    entry.text.strip.split(" ", 3)
+  end
+  actual = [["number","result","published at"]].concat(actual)
+
+  histories.diff!(actual)
 end

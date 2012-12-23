@@ -19,7 +19,7 @@ When /^I check "([^"]*)"$/ do |field|
   check(field)
 end
 
-When /^I (should|should not) see "([^"]*)"(| within "([^"]*)")$/ do |should_or_not, content, work, area|
+Then /^I (should|should not) see "([^"]*)"(| within "([^"]*)")$/ do |should_or_not, content, work, area|
   area = "html" unless area
   page.within(area) do
     if should_or_not == "should"
@@ -30,7 +30,7 @@ When /^I (should|should not) see "([^"]*)"(| within "([^"]*)")$/ do |should_or_n
   end
 end
 
-When /^I should see "([^"]*)" linked to "([^"]*)"(| within "([^"]*)")$/ do |content, link_url, work, area|
+Then /^I should see "([^"]*)" linked to "([^"]*)"(| within "([^"]*)")$/ do |content, link_url, work, area|
   area = "html" unless area
   page.within(area) do
     find(:xpath, "//a[@href='#{link_url}' and text()='#{content}']")['href'].should == link_url
