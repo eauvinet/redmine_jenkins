@@ -22,7 +22,7 @@
 
   <% @hudson.jobs.each do |job|%>
     <% next unless @hudson.settings.job_include?(job.name) %>
-    <div class="contextual<%='-icon24' if @hudson.settings.look_and_feel == 'Hudson'%> request-build-<%=job.name%>">
+    <div class="contextual<%='-icon24' if @hudson.settings.look_and_feel == 'Hudson'%>">
     <% build_icon = image_tag("#{@hudson.settings.url}images/24x24/clock.gif", :alt => 'build', :class=>'icon-build-request', :id=>"build-request-#{job.name}", :title => l(:label_build_now)) if @hudson.settings.look_and_feel == 'Hudson' %>
     <% build_icon = "[#{l(:label_build_now)}]" if @hudson.settings.look_and_feel == 'Plugin' %>
     <%= build_icon if authorize_for( "hudson", "build" ) %>
@@ -80,7 +80,6 @@
   <div id="build-artifacts" style="display:none;">
     <%="#{l(:label_build_artifacts)}" %><hr style="width:18em;"/><div id="build-artifacts-list" style="padding-left:20px;"></div>
   </div>
-  <%#= javascript_tag "new DescriptionVisibilityController(#{!@hudson.settings[:show_compact]}, '#{l(:label_show_description)}', '#{l(:label_hide_description)}')"%>
 <% end %>
 
 <!-- Add Atom Feed -->
@@ -108,14 +107,13 @@ $(document).ready(function() {
     message_failure: '<%="#{t :notice_err_build_failed} - ${job_name}".html_safe%>'
   });
   <% end %>
-  <%#= javascript_tag "new BuildRequest('#{url_for(:controller => 'hudson', :action => 'build', :id=>@project)}', 'build accepted - ${job_name}', 'build failure - ${job_name}')" if authorize_for( "hudson", "build" ) %>
+  <%#= javascript_tag "new DescriptionVisibilityController(#{!@hudson.settings[:show_compact]}, '#{l(:label_show_description)}', '#{l(:label_hide_description)}')"%>
 });
 //-->
 </script>
 
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag "hudson.css", :plugin => "redmine_hudson", :media => "screen" %>
-  <%#= javascript_include_tag 'build_request', :plugin => "redmine_hudson" %>
   <%#= javascript_include_tag 'description_visibility_controller', :plugin => "redmine_hudson" %>
   <%= javascript_include_tag 'jquery.outerHtml.js', :plugin => "redmine_hudson" %>
   <%= javascript_include_tag 'jquery.build_history_controller.js', :plugin => "redmine_hudson" %>
