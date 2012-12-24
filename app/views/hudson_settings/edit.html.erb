@@ -46,7 +46,7 @@
 
 <h2 style="margin-top:20px;"><%=t(:label_database)%></h2>
 
-<% form_tag({:action => 'delete_history', :id => @project}) do %>
+<%= form_tag({:action => 'delete_history', :id => @project}) do %>
   <%= submit_tag t(:button_delete_history) %>
 <% end %>
 

@@ -4,6 +4,10 @@ When /^I go to (.*)$/ do |page_name|
   visit path_to(page_name)
 end
 
+When /^I show (.*)$/ do |page_name|
+  step("I go to #{page_name}")
+end
+
 When /^I click "([^"]*)"(| within "([^"]*)")$/ do |element, temp, area|
   area = "html" unless area
   within(area) do

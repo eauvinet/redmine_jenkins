@@ -58,7 +58,7 @@ Feature: index
       | #2     | SUCCESS | 2009/07/19 20:35:15 |
       | #1     | FAILURE | 2009/07/19 19:13:15 |
 
-  @javascript @current
+  @javascript
   Scenario: click build icon, plugin request build and show result
     Given HudsonApi.request_build returns "simple/job_simple-ruby-application_build_result"
     When  I go to Hudson at "eCookbook" Project

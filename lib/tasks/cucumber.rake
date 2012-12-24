@@ -66,8 +66,9 @@ begin
     system 'rake db:drop'
     system 'rake db:migrate'
     system 'rake redmine:plugins:migrate'
-    system 'REDMINE_LANG=en rake redmine:load_default_data'
-    system 'rake db:fixtures:load FIXTURES=projects,users,members,roles,member_roles'
+    system 'rake db:fixtures:load FIXTURES=projects,users,members,roles,member_roles,enabled_modules'
+    system 'rake db:fixtures:load FIXTURES=trackers,projects_trackers,issue_categories,issue_statuses,enumerations,issues'
+    system 'rake db:fixtures:load FIXTURES=repositories,changes,changesets'
   end
 
   task 'config:prepare' do
