@@ -47,13 +47,4 @@
  <%= hidden_field_tag 'settings[jobs][]', '' %>
  <%= hidden_field_tag 'job_settings[-1]', '' %>
 </p>
-<script type="text/javascript">
-//<!--
-var controller = new JobSettingsFieldController();
-function on_job_settings_reloaded() {
-  alert("here");
-  controller.initialize();
-}
-//-->
-</script>
 </div>
