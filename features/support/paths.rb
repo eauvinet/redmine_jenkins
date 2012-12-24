@@ -26,6 +26,8 @@ module NavigationHelpers
     when /ProjectSettings at "(.*)" Project/
       "/projects/#{$1.downcase}/settings"
 
+    when /ProjectActivity at "(.*)" Project/
+      "/projects/#{$1.downcase}/activity"
 
     when /issue #(.*)/
       "/issues/#{$1}"

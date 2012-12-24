@@ -68,3 +68,27 @@ Given /Issue #(.*) is related to revisions "(.*)"/ do |issue_no, revisions|
     Changeset.connection.execute("INSERT INTO changesets_issues (changeset_id, issue_id) values (#{changeset.id}, #{issue.id})")
   end
 end
+
+When /^I check "(.*?)" Activity$/ do | activity_type |
+  within("#sidebar") do
+    check "#{activity_type}"
+  end
+end
+
+Then /^I should see build results in Activity:$/ do |results|
+  actual = [["activity", "activity url", "activity detail", "activity author"]]
+
+  actual_data = all(:xpath, "//dt[contains(@class,'hudson-build')]").map do |dt|
+    activity = dt.find("a").native.text
+    activity_url = dt.find("a")['href']
+    dd = dt.find(:xpath, "following-sibling::dd[1]")
+    activity_detail = dd.find("span[@class='description']").text
+    activity_author = dd.find("span[@class='author']").text
+    [activity, activity_url, activity_detail, activity_author]
+  end
+
+  actual.concat(actual_data)
+
+  results.diff!(actual)
+
+end

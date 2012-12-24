@@ -1,8 +1,7 @@
-# $Id: hudson_index.feature 477 2010-03-27 16:45:28Z toshiyuki.ando1971 $
 Feature: issue
   show hudson build results on issue
 
-  @javascript @current
+  @javascript
   Scenario: Show job simple-ruby-application
     Given Project "eCookbook" uses modules below:
         | name       |

@@ -10,7 +10,7 @@ Given /^"(.*)" project has jobs:/ do |project_name, hudson_jobs_table|
   settings = HudsonSettings.find_by_project_id(project.id)
   settings = HudsonSettings.new unless settings
   settings.project_id = project.id
-  settings.url = "http://localhost:8080/hudson/"
+  settings.url = "http://localhost:8080/"
   settings.job_filter = jobs.join(",")
   settings.look_and_feel = "Hudson"
   settings.save!
