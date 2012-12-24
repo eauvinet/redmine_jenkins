@@ -106,17 +106,21 @@ $(document).ready(function() {
     message_success: '<%="#{t :notice_build_accepted} - ${job_name}".html_safe%>',
     message_failure: '<%="#{t :notice_err_build_failed} - ${job_name}".html_safe%>'
   });
+  $('#switch-description-visibility').descriptionVisibilityController({
+    initialState: <%=!@hudson.settings[:show_compact]%>,
+    labelShow: '<%=t :label_show_description%>',
+    labelHide: '<%=t :label_hide_description%>'
+  });
   <% end %>
-  <%#= javascript_tag "new DescriptionVisibilityController(#{!@hudson.settings[:show_compact]}, '#{l(:label_show_description)}', '#{l(:label_hide_description)}')"%>
 });
 //-->
 </script>
 
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag "hudson.css", :plugin => "redmine_hudson", :media => "screen" %>
-  <%#= javascript_include_tag 'description_visibility_controller', :plugin => "redmine_hudson" %>
   <%= javascript_include_tag 'jquery.outerHtml.js', :plugin => "redmine_hudson" %>
   <%= javascript_include_tag 'jquery.build_history_controller.js', :plugin => "redmine_hudson" %>
   <%= javascript_include_tag 'jquery.build_artifacts_controller.js', :plugin => "redmine_hudson" %>
   <%= javascript_include_tag 'jquery.build_request_controller.js', :plugin => "redmine_hudson" %>
+  <%= javascript_include_tag 'jquery.description_visibility_controller.js', :plugin => "redmine_hudson" %>
 <% end %>
