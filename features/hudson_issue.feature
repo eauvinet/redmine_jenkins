@@ -17,5 +17,5 @@ Feature: issue
     When I show issue #1
     When save the page
     Then I should see build results in Associated revisions:
-        | revision | job name                | build number | build result  | build url                                                  | finished at        |
-        | 2        | simple-ruby-application | 5            | SUCCESS       | http://localhost:8080/hudson/job/simple-ruby-application/5 | less than a minute |
+        | revision | job name                | build number | build result  | build url                                           | finished at        |
+        | 2        | simple-ruby-application | 5            | SUCCESS       | http://localhost:8080/job/simple-ruby-application/5 | less than a minute |
