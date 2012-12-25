@@ -14,7 +14,7 @@ group :redmine_hudson_test do
   end
 
   platforms :mri_19, :mingw_19 do
-    gem 'simplecov', "~> 0.6", :require => false, :group => :development
+    gem 'simplecov', ">= 0.6", :require => false, :group => :development
     gem 'simplecov-rcov', :require => false, :group => :development
     gem 'simplecov-rcov-text', :require => false, :group => :development
   end
