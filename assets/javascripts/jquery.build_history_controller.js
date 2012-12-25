@@ -31,12 +31,12 @@
         jQuery("#build-histroy").text("");
         jQuery("#build-history").hide();
 
-        jobName = jQuery(this).attr("id").substring("build-history-".length);
+        jobId = jQuery(this).attr("id").substring("build-history-".length);
 
         jQuery.ajax({
           type: "GET",
           url: options.url,
-          data: "name=" + jobName,
+          data: "job_id=" + jobId,
           cache: false,
           success: function(data, dataType) {
             showBuildHistory(jQuery(elem), data);

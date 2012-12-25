@@ -20,7 +20,11 @@ When /^I fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
 end
 
 When /^I check "([^"]*)"$/ do |field|
-  check(field)
+  begin
+    check(field)
+  rescue
+    find(:xpath, "//input[@value='#{field}']").set(true)
+  end
 end
 
 Then /^I (should|should not) see "([^"]*)"(| within "([^"]*)")$/ do |should_or_not, content, work, area|

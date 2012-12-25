@@ -30,9 +30,9 @@
         jQuery("#build-artifacts-list").text("");
         jQuery("#build-artifacts").hide();
 
-        var jobName = jQuery(this).attr("id").substring("build-artifacts-".length);
+        var jobId = jQuery(this).attr("id").substring("build-artifacts-".length);
 
-        showBuildArtifacts(jQuery(elem), jQuery("#build-artifacts-list-" + jobName));
+        showBuildArtifacts(jQuery(elem), jQuery("#build-artifacts-list-" + jobId));
       });
     });
   };

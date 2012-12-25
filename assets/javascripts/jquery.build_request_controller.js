@@ -34,12 +34,13 @@
         jQuery("#info").text("").hide();
         jQuery("#error").text("").hide();
 
-        jobName = jQuery(this).attr("id").substring("build-request-".length);
+        jobId = jQuery(this).attr("id").substring("build-request-".length);
+        jobName = jQuery("h3#job-name-" + jobId + " a").text();
 
         jQuery.ajax({
           type: "GET",
           url: options.url,
-          data: "name=" + jobName,
+          data: "job_id=" + jobId,
           cache: false,
           success: function(data, dataType) {
             requestSuccess(jobName, data);

@@ -1,12 +1,14 @@
 
 When /^I click "([^"]*)" icon of "([^"]*)"$/ do |text, job_name|
-  find(:xpath, "//img[contains(@id, '-#{job_name}') and @title='#{text}']").click
+  job_id = get_job_id_from_job_name(job_name)
+  find(:xpath, "//img[contains(@id, '-#{job_id}') and not(substring-after(@id, '-#{job_id}')) and @title='#{text}']").click
 end
 
 Then /^I should see job description of "([^"]*?)":$/ do |job_name, description|
   # FIXME can't compare crlf...
   description = description.gsub(/\r\n/, " ")
-  find("div#job-state-#{job_name} div.job-description").text.should eq(description)
+  job_id = get_job_id_from_job_name(job_name)
+  find("div#job-state-#{job_id} div.job-description").text.should eq(description)
 end
 
 Then /^I should see latest build of "([^"]*?)":$/ do |job_name, table|
@@ -15,7 +17,9 @@ Then /^I should see latest build of "([^"]*?)":$/ do |job_name, table|
   exp_result      = table.hashes[0]['result']
   exp_finished_at = table.hashes[0]['finished at']
 
-  within("#latest-build-#{job_name}") do
+  job_id = get_job_id_from_job_name(job_name)
+
+  within("#latest-build-#{job_id}") do
     find(".number").should have_content(exp_number)
     find(".result").should have_content(exp_result)
     find(".finished-at").should have_content(exp_finished_at)
@@ -25,7 +29,9 @@ end
 
 Then /^I should see health reports of "([^"]*?)":$/ do |job_name, table|
 
-  within("#job-state-#{job_name}") do
+  job_id = get_job_id_from_job_name(job_name)
+
+  within("#job-state-#{job_id}") do
     actual = all("ul.job-health-reports li").map do |li|
       [li.text.strip]
     end
@@ -61,4 +67,8 @@ Then /^I should see build history:$/ do |histories|
   actual = [["number","result","published at"]].concat(actual)
 
   histories.diff!(actual)
+end
+
+def get_job_id_from_job_name(job_name)
+  find(:xpath, "//h3[a/text()='#{job_name}']")["id"].gsub(/job-name-/, "")
 end

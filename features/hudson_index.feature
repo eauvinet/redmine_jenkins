@@ -18,12 +18,12 @@ Feature: index
     When  I go to HudsonSettings at "eCookbook" Project
      And  I fill in "http://localhost:8080" for "settings[url]"
      And  I click "Save"
-     And  I check "settings_jobs_simple-ruby-application"
+     And  I check "simple-ruby-application"
      And  I click "Save"
 
   Scenario: Plugin can show job full details
     When  I go to Hudson at "eCookbook" Project
-    Then  I should see "simple-ruby-application" within "#job-state-simple-ruby-application h3"
+    Then  I should see "simple-ruby-application" within "h3#job-name-1"
      And  I should see job description of "simple-ruby-application":
       """
       here is simple ruby application description.
@@ -50,7 +50,7 @@ Feature: index
   Scenario: click document icon, plugin show build history
     Given HudsonApi.get_recent_builds returns "simple/job_simple-ruby-application_rssAll"
     When  I go to Hudson at "eCookbook" Project
-    Then  I should see "simple-ruby-application" within "#job-state-simple-ruby-application h3"
+    Then  I should see "simple-ruby-application" within "h3#job-name-1"
     When  I click "Show Build History" icon of "simple-ruby-application"
     Then  I should see build history:
       | number | result  | published at |

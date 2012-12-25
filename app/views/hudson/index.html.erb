@@ -23,17 +23,17 @@
   <% @hudson.jobs.each do |job|%>
     <% next unless @hudson.settings.job_include?(job.name) %>
     <div class="contextual<%='-icon24' if @hudson.settings.look_and_feel == 'Hudson'%>">
-    <% build_icon = image_tag("#{@hudson.settings.url}images/24x24/clock.gif", :alt => 'build', :class=>'icon-build-request', :id=>"build-request-#{job.name}", :title => l(:label_build_now)) if @hudson.settings.look_and_feel == 'Hudson' %>
+    <% build_icon = image_tag("#{@hudson.settings.url}images/24x24/clock.gif", :alt => 'build', :class=>'icon-build-request', :id=>"build-request-#{job.id}", :title => l(:label_build_now)) if @hudson.settings.look_and_feel == 'Hudson' %>
     <% build_icon = "[#{l(:label_build_now)}]" if @hudson.settings.look_and_feel == 'Plugin' %>
     <%= build_icon if authorize_for( "hudson", "build" ) %>
     </div>
 
-    <div class="contextual latest-build" id='latest-build-<%=job.name%>'>
+    <div class="contextual latest-build" id='latest-build-<%=job.id%>'>
       <%=job.latest_build.error if job.latest_build.error.present? %>
       <% if job.latest_build.error.blank? %>
         <% if job.latest_build.number.present? %>
-          <%=image_tag 'document.png', :class=>'icon-build-history', :id=>"build-history-#{job.name}", :title=>l(:label_show_build_history)%>
-          <%=image_tag("#{@hudson.settings.url}images/16x16/package.gif", :class=>"icon-build-artifacts", :id=>"build-artifacts-#{job.name}", :title=>l(:label_show_build_artifacts)) unless job.latest_build.artifacts.empty? %>
+          <%=image_tag 'document.png', :class=>'icon-build-history', :id=>"build-history-#{job.id}", :title=>l(:label_show_build_history)%>
+          <%=image_tag("#{@hudson.settings.url}images/16x16/package.gif", :class=>"icon-build-artifacts", :id=>"build-artifacts-#{job.id}", :title=>l(:label_show_build_artifacts)) unless job.latest_build.artifacts.empty? %>
           <%=link_to "##{job.latest_build.number}", job.latest_build.url_for(:user), class: 'number' %>
           <%=content_tag("span", job.latest_build.result, :class => "result #{job.latest_build.result.downcase}") if true != job.latest_build.building? && job.latest_build.result.present? %>
           <%=content_tag("span", l(:notice_building), :class => "result") if job.latest_build.building? %>
@@ -45,10 +45,10 @@
       <% end %>
     </div>
 
-    <div class="job-state" id="job-state-<%="#{job.name}"%>">
+    <div class="job-state" id="job-state-<%="#{job.id}"%>">
     <% icon_base_class = "icon24" if @hudson.settings.look_and_feel == 'Hudson' %>
     <% icon_base_class = "icon" if @hudson.settings.look_and_feel == 'Plugin' %>
-    <h3 class="<%=icon_base_class%> icon-<%=job.state%>"><%=link_to job.name, job.url_for(:user)%></h3>
+    <h3 class="<%=icon_base_class%> icon-<%=job.state%>" id="job-name-<%="#{job.id}"%>"><%=link_to job.name, job.url_for(:user)%></h3>
       <div class="wiki job-description">
         <% if Hudson.job_description_format == "textile" %>
           <%= textilizable job.description %>
@@ -68,7 +68,7 @@
       </ul>
     </div>
 
-    <ul class="build-artifacts-list" id="build-artifacts-list-<%="#{job.name}"%>" style="display:none;">
+    <ul class="build-artifacts-list" id="build-artifacts-list-<%="#{job.id}"%>" style="display:none;">
     <% job.latest_build.artifacts.each do |artifact| %>
       <%= content_tag :li, link_to(artifact.display_path, "#{job.url_for(:user)}/#{job.latest_build.number}/artifact/#{artifact.relative_path}")%>
     <% end %>

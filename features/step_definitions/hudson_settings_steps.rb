@@ -30,7 +30,7 @@ When /^I fill in job settings:$/ do |table|
     job_index = index + 1
     job_name = hash["Name"]
 
-    set_checked "settings_jobs_#{job_name}", hash["Enable"]
+    set_checked job_name, hash["Enable"]
     set_checked "job_settings_#{job_index}_build_rotate", hash["Delete Old Build"]
     fill_in "job_settings_#{job_index}_build_rotator_days_to_keep", :with => hash["Days To Keep"]
     fill_in "job_settings_#{job_index}_build_rotator_num_to_keep", :with => hash["Num To Keep"]
@@ -52,8 +52,8 @@ Then /^I should see job settings:$/ do |job_list|
   index = 1
   actual[1..-1].map! do |row|
     job_name = row[1]
-    if page.has_field?("settings_jobs_#{job_name}")
-      row[0] = page.find("#settings_jobs_#{job_name}").checked? == nil ? "false" : "true"
+    if page.has_xpath?("//input[@value='#{job_name}']")
+      row[0] = page.find(:xpath, "//input[@value='#{job_name}']").checked? == nil ? "false" : "true"
     end
     if page.has_field?("job_settings_#{index}_build_rotate")
       row[3] = page.find("#job_settings_#{index}_build_rotate").checked? == nil ? "false" : "true"
@@ -68,9 +68,11 @@ Then /^I should see job settings:$/ do |job_list|
 end
 
 def set_checked(locator, state)
-  if state == "true"
-    check locator
-  else
-    uncheck locator
-  end
+  field = if has_field?(locator)
+            find_field(locator)
+          else
+            find(:xpath, "//input[@value='#{locator}']")
+          end
+
+  field.set (state == "true")
 end

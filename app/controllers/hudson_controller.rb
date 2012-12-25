@@ -43,16 +43,16 @@ class HudsonController < ApplicationController
   def build
     raise HudsonNoSettingsException if @hudson.settings.new_record?
 
-    job = @hudson.get_job(params[:name])
+    job = @hudson.jobs.find {|job| job.id == params[:job_id].to_i}
 
-    raise HudsonNoJobException if job.is_a?(HudsonNoJob)
+    raise HudsonNoJobException unless job
 
     job.request_build
 
   rescue HudsonNoSettingsException
     render :text => "NG:#{params[:name]} #{t(:notice_err_no_settings)}"
   rescue HudsonNoJobException
-    render :text => "NG:#{params[:name]} #{t(:notice_err_no_job, :job_name => params[:name])}"
+    render :text => "NG:#{params[:name]} #{t(:notice_err_no_job, :job_name => params[:job_id])}"
   else
     if job.hudson_api_errors.empty?
       render :text => "OK:#{params[:name]}"
@@ -64,18 +64,17 @@ class HudsonController < ApplicationController
 
   def history
     raise HudsonNoSettingsException if @hudson.settings.new_record?
-    raise HudsonNoJobException unless @hudson.settings.job_include?(params[:name])
 
-    job = @hudson.get_job(params[:name])
+    job = @hudson.jobs.find {|job| job.id == params[:job_id].to_i}
 
-    raise HudsonNoJobException if job.is_a?(HudsonNoJob)
+    raise HudsonNoJobException unless job
 
     @builds = job.fetch_recent_builds
 
   rescue HudsonNoSettingsException
     render :text => t(:notice_err_no_settings, :url => url_for(:controller => 'hudson_settings', :action => 'edit', :id => @project))
   rescue HudsonNoJobException
-    render :text => t(:notice_err_no_job, :job_name => params[:name])
+    render :text => t(:notice_err_no_job, :job_name => params[:job_id])
   else
     if job.hudson_api_errors.empty?
       render :partial => 'history'
