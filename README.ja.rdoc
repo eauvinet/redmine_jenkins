@@ -1,5 +1,5 @@
 # $Id$
-= Hudson Plugin 1.0.8
+= Hudson Plugin 2.1.0
 
 Redmie を Hudson と連携させるためのプラグインです。
 
@@ -15,7 +15,7 @@ Redmie を Hudson と連携させるためのプラグインです。
 Hudson側にも {Redmine用プラグイン}[http://d.hatena.ne.jp/gaooh/20090308/1236509572] があります。
 
 == 必要なもの
-* Redmine 0.8.x で動作します。
+* Redmine 2.1.0 以上で動作します。
 * Hudson 1.313 をお奨めします。
 
 == Feature
@@ -137,6 +137,15 @@ rake タスクを使って情報を取得する場合は、必ず 自動取得�
 状況が改善するかもしれません。
 
 == 変更履歴
+
+=== 2.1.0
+
+* ##1153 (バグ) いくつかの言語ファイルのフォーマットが古いまま
+* ##1147 (バグ) plugin assets のルーティングでエラーが発生する
+* ##1128 (提案) gem が backlogs と競合する
+* ##1121 (バグ) Redmine 2.1.2 - Redmine_Hudson plugin 2.00 - ActionView::Template::Error (undefined method `auth_user' for #<HudsonSettings
+* ##1118 (機能) Redmine2.1.x をサポートする
+
 
 === 1.0.8
 

@@ -1,5 +1,5 @@
 # $Id$
-= Hudson Plugin 1.0.8
+= Hudson Plugin 2.1.0
 
 This is a plugin collaborates with Hudson for Redmine.
 
@@ -11,7 +11,7 @@ Easy install configuration, and good ui.
 More detail {Meet Hudson}[http://wiki.hudson-ci.org/display/HUDSON/Meet+Hudson]
 
 == Requirements
-* Require Redmine 0.8.x.
+* Require Redmine 2.1.0 higher.
 * Recommend Hudson 1.313.
 
 == Feature
@@ -145,6 +145,15 @@ Use 'delete history' button in setting page.
 * RAILS_ENV=test rake redmine_hudson:cucumber
 
 == Changelog
+
+=== 2.1.0
+
+* ##1153 (Defect) some language file uses old format.
+* ##1147 (Defect) RoutingErrors for plugin assets.
+* ##1128 (Proposal) Resolve conflict with backlogs
+* ##1121 (Defect) Redmine 2.1.2 - Redmine_Hudson plugin 2.00 - ActionView::Template::Error (undefined method `auth_user' for #<HudsonSettings
+* ##1118 (Feature) Support Redmine2.1.x
+
 
 === 1.0.8
 
