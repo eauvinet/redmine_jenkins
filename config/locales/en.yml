@@ -61,7 +61,7 @@ en:
   notice_err_no_jobs: Hudson has no job
   notice_err_invalid_url: Invalid URL
   notice_err_no_job : 'job not found [%{job_name}]'
-  notice_err_unknown: 'Unknown Error {%{description}}'
+  notice_err_unknown: 'Unknown Error %{description}'
 
   notice_err_build_failed: 'Build failed.'
   notice_err_build_failed_no_job: 'Build failed. Job not found [%{job_name}]'

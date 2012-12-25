@@ -54,17 +54,17 @@ de:
   notice_health_report_setting: 'Wenn das Schlüsselwort - ${keyword} im Build Statusbericht gefunden wird, einen Link zum Build Job ${url_format} einfügen'
   notice_autofetch: Hole die Daten vom Build Server während der 'Index' Aktion. <br> Alternativ kann man dies auch durch den rake-task "redmine_build:fetch" durch ein externes Skript periodisch ausführen lasen.
 
-  notice_err_cant_connect: "Es kann keine Verbindung zum Build-Server bAuhaus aufgebaut werden. {{value}}" 
-  notice_err_response_invalid: 'Die Antwort war nicht valide [{{value}}]'
-  notice_err_http_error: 'Http-Fehler [{{value}}]'
-  notice_err_no_settings: "Keine Einstellungen für dieses Projekt. Bitte überprüfen Sie die <a href='{{value}}'>Einstellungen</a>." 
+  notice_err_cant_connect: "Es kann keine Verbindung zum Build-Server bAuhaus aufgebaut werden. %{description}"
+  notice_err_response_invalid: 'Die Antwort war nicht valide %{description}'
+  notice_err_http_error: 'Http-Fehler result code:%{code} message:%{message}'
+  notice_err_no_settings: "Keine Einstellungen für dieses Projekt. Bitte überprüfen Sie die <a href='%{url}'>Einstellungen</a>."
   notice_err_no_jobs: Im Build wurde kein Job konfiguriert.
   notice_err_invalid_url: Nicht valide URL
-  notice_err_no_job : 'Der Job [{{value}}] wurde nicht gefunden.'
-  notice_err_unknown: 'Unknown Fehler {{value}}'
+  notice_err_no_job : 'Der Job [%{job_name}] wurde nicht gefunden.'
+  notice_err_unknown: 'Unknown Fehler %{description}'
 
   notice_err_build_failed: 'Build fehlgeschlagen.'
-  notice_err_build_failed_no_job: 'Build fehlgeschlagen. Der Job [{{value}}] wurde nicht gefunden.'
+  notice_err_build_failed_no_job: 'Build fehlgeschlagen. Der Job [%{job_name}] wurde nicht gefunden.'
 
   permission_view_bAuhaus: Build jobs sehen
   permission_build_bAuhaus: build Job ausführen

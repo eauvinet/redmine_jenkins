@@ -54,17 +54,17 @@ ru:
   notice_health_report_setting: 'Если плагин найдёт ключевое слово - ${keyword} в отчёте о состоянии, предоставит ссылку на Хадсон - ${url_format}'
   notice_autofetch: Получать информацию из Хадсона во время индексирования. <br> Вы можете вызвать "redmine_hudson:fetch" посредством внешнего скрипта.
 
-  notice_err_cant_connect: "Невозможно подключиться к Хадсону {{value}}"
-  notice_err_response_invalid: 'Некорректный ответ {{value}}'
-  notice_err_http_error: 'Ошибка HTTP {{value}}'
-  notice_err_no_settings: "Отсутствуют установки для данного проекта. Пожалуйста <a href='{{value}}'>настройте плагин</a>"
+  notice_err_cant_connect: "Невозможно подключиться к Хадсону %{description}"
+  notice_err_response_invalid: 'Некорректный ответ %{description}'
+  notice_err_http_error: 'Ошибка HTTP result code:%{code} message:%{message}'
+  notice_err_no_settings: "Отсутствуют установки для данного проекта. Пожалуйста <a href='%{url}'>настройте плагин</a>"
   notice_err_no_jobs: У Хадсона нет задач на сборку
   notice_err_invalid_url: Некорректный URL
-  notice_err_no_job : 'Задача не найдена [{{value}}]'
-  notice_err_unknown: 'Неизвестная ошибка {{value}}'
+  notice_err_no_job : 'Задача не найдена [%{job_name}]'
+  notice_err_unknown: 'Неизвестная ошибка %{description}'
 
   notice_err_build_failed: 'Сборка провалилась'
-  notice_err_build_failed_no_job: 'Сборка провалилась. Задача не найдена [{{value}}]'
+  notice_err_build_failed_no_job: 'Сборка провалилась. Задача не найдена [%{job_name}]'
 
   permission_view_hudson: Посмотреть
   permission_build_hudson: Собрать

@@ -54,17 +54,17 @@ nl:
   notice_health_report_setting: 'Als de plugin het keyword vindt - ${keyword} in het HealthReport, Geeft het een link naar Hudson - ${url_format}'
   notice_autofetch: Haal informatie van Hudson tijdens de actie 'index'. <br> U kan de rake-task "redmine_hudson:fetch" uitvoeren in een external script.
 
-  notice_err_cant_connect: "Kan niet verbinden met Hudson %1s"
-  notice_err_response_invalid: 'Response ongeldig %1s'
-  notice_err_http_error: 'Http fout %1s'
-  notice_err_no_settings: "Geen instellingen voor dit project. Alstublief <a href='%1s'>bevestig de instellingen</a>"
+  notice_err_cant_connect: "Kan niet verbinden met Hudson %{description}"
+  notice_err_response_invalid: 'Response ongeldig %{description}'
+  notice_err_http_error: 'Http fout result code:%{code} message:%{message}'
+  notice_err_no_settings: "Geen instellingen voor dit project. Alstublief <a href='%{url}'>bevestig de instellingen</a>"
   notice_err_no_jobs: Hudson heeft geen job
   notice_err_invalid_url: Ongeldige URL
-  notice_err_no_job : 'job niet gevonden [%1s]'
-  notice_err_unknown: 'Onbekende fout %1s'
+  notice_err_no_job : 'job niet gevonden [%{job_name}]'
+  notice_err_unknown: 'Onbekende fout %{description}'
 
   notice_err_build_failed: 'Build gefaald.'
-  notice_err_build_failed_no_job: 'Build gefaald. Job niet gevonden [%1s]'
+  notice_err_build_failed_no_job: 'Build gefaald. Job niet gevonden [%{job_name}]'
 
   permission_view_hudson: Zie Hudson
   permission_build_hudson: Build Hudson

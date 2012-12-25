@@ -54,17 +54,17 @@ zh:
   notice_health_report_setting: '如果发现关键字 - ${keyword} , 指定Hudson上链接 - ${url_format}'
   notice_autofetch: 获取Hudson相关信息 'index'. <br> 可以运行外部脚本 "redmine_hudson:fetch" 。
 
-  notice_err_cant_connect: "不能连接到Hudson %1s"
-  notice_err_response_invalid: 'Response Invalid %1s'
-  notice_err_http_error: 'Http Error %1s'
-  notice_err_no_settings: "此项目无设置. 请 <a href='%1s'>更新设置</a>"
+  notice_err_cant_connect: "不能连接到Hudson %{description}"
+  notice_err_response_invalid: 'Response Invalid %{description}'
+  notice_err_http_error: 'Http Error result code:%{code} message:%{message}'
+  notice_err_no_settings: "此项目无设置. 请 <a href='%{url}'>更新设置</a>"
   notice_err_no_jobs: Hudson没有任务
   notice_err_invalid_url: Invalid URL
-  notice_err_no_job : '没有发现任务 [%1s]'
-  notice_err_unknown: 'Unknown Error %1s'
+  notice_err_no_job : '没有发现任务 [%{job_name}]'
+  notice_err_unknown: 'Unknown Error %{description}'
 
   notice_err_build_failed: '生成失败'
-  notice_err_build_failed_no_job: '生成失败。没有发现任务 [%1s]'
+  notice_err_build_failed_no_job: '生成失败。没有发现任务 [%{job_name}]'
 
   permission_view_hudson: View Hudson
   permission_build_hudson: Build Hudson

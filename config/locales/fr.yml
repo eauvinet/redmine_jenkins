@@ -54,17 +54,17 @@ fr:
   notice_health_report_setting: 'Si le plugin trouve le mot clef - ${keyword} dans le rapport de santé, contruit un lien vers Hudson - ${url_format}'
   notice_autofetch: Récupère les informations depuis Hudson pendant l'action. <br> Une tache de Rake peut etre appelée "redmine_hudson:fetch" par un script externe.
 
-  notice_err_cant_connect: "Ne peut pas se connecter à Hudson"
-  notice_err_response_invalid: 'Réponce Invalide {{value}}'
-  notice_err_http_error: 'Erreur Http {{value}}'
-  notice_err_no_settings: "Pas de Configuration pour ce Projet. SVP <a href='{{value}}'>Confirmer les settings</a>"
+  notice_err_cant_connect: "Ne peut pas se connecter à Hudson %{description}"
+  notice_err_response_invalid: 'Réponce Invalide %{description}'
+  notice_err_http_error: 'Erreur Http result code:%{code} message:%{message}'
+  notice_err_no_settings: "Pas de Configuration pour ce Projet. SVP <a href='%{url}'>Confirmer les settings</a>"
   notice_err_no_jobs: Pas de Tâches dans Hudson
   notice_err_invalid_url: URL Invalide
-  notice_err_no_job : 'Tâche introuvable [{{value}}]'
-  notice_err_unknown: 'Inconnu erreur {{value}}'
+  notice_err_no_job : 'Tâche introuvable [%{job_name}]'
+  notice_err_unknown: 'Inconnu erreur %{description}'
 
   notice_err_build_failed: 'Construction Echouée.'
-  notice_err_build_failed_no_job: 'Construction Echouée. Tâche Introuvable [{{value}}]'
+  notice_err_build_failed_no_job: 'Construction Echouée. Tâche Introuvable [%{job_name}]'
 
   permission_view_hudson: View Hudson
   permission_build_hudson: Build Hudson

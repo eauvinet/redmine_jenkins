@@ -54,17 +54,17 @@ hu:
   notice_health_report_setting: 'If plugin find keyword - ${keyword} in HealthReport, Provide a link to Hudson - ${url_format}'
   notice_autofetch: Fetch information from Hudson during action 'index'. <br> You can call rake-task "redmine_hudson:fetch" by an external script.
 
-  notice_err_cant_connect: "Nem tudok csatlakozni a Hudson-hoz {{value}}"
-  notice_err_response_invalid: 'Érvénytelen válasz {{value}}'
-  notice_err_http_error: 'Http hiba {{value}}'
-  notice_err_no_settings: "Ehhez a projekthez nincsenek megadva beállítások-. Kérlek <a href='{{value}}'>fogadd el a beállításokat</a>"
+  notice_err_cant_connect: "Nem tudok csatlakozni a Hudson-hoz %{description}"
+  notice_err_response_invalid: 'Érvénytelen válasz %{description}'
+  notice_err_http_error: 'Http hiba result code:%{code} message:%{message}'
+  notice_err_no_settings: "Ehhez a projekthez nincsenek megadva beállítások-. Kérlek <a href='%{url}'>fogadd el a beállításokat</a>"
   notice_err_no_jobs: Nincsen feladat
   notice_err_invalid_url: Érvénytelen URL
-  notice_err_no_job : 'feladatot nem találom [{{value}}]'
-  notice_err_unknown: 'hiba {{value}}'
+  notice_err_no_job : 'feladatot nem találom [%{job_name}]'
+  notice_err_unknown: 'hiba %{description}'
 
   notice_err_build_failed: 'Sikertelen fordítás'
-  notice_err_build_failed_no_job: 'Sikertelen fordítás. Feladatot nem találtam [{{value}}]'
+  notice_err_build_failed_no_job: 'Sikertelen fordítás. Feladatot nem találtam [%{job_name}]'
 
   permission_view_hudson: View Hudson
   permission_build_hudson: Build Hudson
