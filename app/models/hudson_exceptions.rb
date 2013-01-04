@@ -50,4 +50,10 @@ class HudsonApiException < Exception
       end
     end
   end
+
+  def to_s
+    base = super
+    "#{base} message:#{@message} code:#{@code} inner exception:#{@inner_exception.to_s}"
+  end
+
 end

@@ -3,16 +3,43 @@
 require "uri"
 require 'net/http'
 
+require File.join( File.dirname( __FILE__ ), '..', 'models', 'hudson_exceptions' )
+
 class HudsonApi
 
-  def self.get_job_list(hudson_url, auth_user, auth_password)
-    url = "#{hudson_url}/xml?depth=0"
+  attr_reader :url, :auth_params
+  attr_reader :uri_http, :use_auth
 
-    HudsonApi.new.open url, auth_user, auth_password
+  def self.is_jenkins?(base_url, auth_user, auth_password)
+    url = "#{base_url}"
+    HudsonApi.new(
+      :url           => url,
+      :auth_user     => auth_user,
+      :auth_password => auth_password
+    ).is_jenkins?
   end
 
-  def self.get_job_details(hudson_url, auth_user, auth_password)
-    url = "#{hudson_url}/xml?depth=1"
+  def self.get_version(base_url, auth_user, auth_password)
+    url = "#{base_url}"
+    HudsonApi.new(
+      :url           => url,
+      :auth_user     => auth_user,
+      :auth_password => auth_password
+    ).version
+  end
+
+  def self.get_job_list(api_url, auth_user, auth_password)
+    url = "#{api_url}/xml?depth=0"
+
+    HudsonApi.new(
+      :url           => url,
+      :auth_user     => auth_user,
+      :auth_password => auth_password
+    ).get
+  end
+
+  def self.get_job_details(api_url, auth_user, auth_password)
+    url = "#{api_url}/xml?depth=1"
     url << "&xpath=/hudson"
     url << "&exclude=/hudson/view"
     url << "&exclude=/hudson/primaryView"
@@ -21,11 +48,15 @@ class HudsonApi
     url << "&exclude=/hudson/job/lastStableBuild"
     url << "&exclude=/hudson/job/lastSuccessfulBuild"
 
-    HudsonApi.new.open url, auth_user, auth_password
+    HudsonApi.new(
+      :url           => url,
+      :auth_user     => auth_user,
+      :auth_password => auth_password
+    ).get
   end
 
-  def self.get_build_results(hudson_url, auth_user, auth_password)
-    url = "#{hudson_url}/xml/?depth=1"
+  def self.get_build_results(api_url, auth_user, auth_password)
+    url = "#{api_url}/xml/?depth=1"
     url << "&exclude=//build/changeSet/item/path"
     url << "&exclude=//build/changeSet/item/addedPath"
     url << "&exclude=//build/changeSet/item/modifiedPath"
@@ -40,72 +71,110 @@ class HudsonApi
     url << "&exclude=//downstreamProject"
     url << "&exclude=//upstreamProject"
 
-    HudsonApi.new.open url, auth_user, auth_password
+    HudsonApi.new(
+      :url           => url,
+      :auth_user     => auth_user,
+      :auth_password => auth_password
+    ).get
   end
 
-  def self.get_recent_builds(hudson_url, auth_user, auth_password)
+  def self.get_recent_builds(api_url, auth_user, auth_password)
+    url = "#{api_url}"
 
-    HudsonApi.new.open hudson_url, auth_user, auth_password
+    HudsonApi.new(
+      :url           => url,
+      :auth_user     => auth_user,
+      :auth_password => auth_password
+    ).get
   end
 
-  def self.request_build(hudson_url, auth_user, auth_password)
+  def self.request_build(api_url, auth_user, auth_password)
+    url = "#{api_url}"
 
-    HudsonApi.new.open hudson_url, auth_user, auth_password
+    HudsonApi.new(
+      :url           => url,
+      :auth_user     => auth_user,
+      :auth_password => auth_password
+    ).get
   end
 
-  def open(uri, auth_user, auth_password)
+  def initialize(params)
+    @url = params[:url]
+    @auth_params = {
+      :auth_user     => params[:auth_user],
+      :auth_password => params[:auth_password]
+    }
+    @auth_params[:use_auth] = @auth_params[:auth_user].present?
+
+    @uri_http = URI.parse( URI.escape(@url) )
+    if @uri_http.scheme == "https"
+      @uri_http.port = 443 if @uri_http.port.present?
+    end
+
+  end
+
+  def is_jenkins?
+    res = do_request(:head)
+    res.key?("X-Jenkins")
+  end
+
+  def version
+    res = do_request(:head)
+    res.key?("X-Hudson") ? res["X-Hudson"] : res["X-Jenkins"]
+  end
+
+  def get
+    do_request(:get).body
+  end
+
+  def do_request(req_type)
 
     begin
-      http = create_http_connection(uri)
-      request = create_http_request(uri, auth_user, auth_password)
-    rescue => error
-      raise HudsonApiException.new(error)
+      http = create_http_connection(@uri_http)
+      request = create_http_request(@uri_http, @auth_params, req_type)
+    rescue => e
+      raise HudsonApiException::new(e)
     end
 
     begin
-      response = http.request(request)
-    rescue Timeout::Error, StandardError => error
-      raise HudsonApiException.new(error)
+      http.request(request)
+    rescue Timeout::Error, StandardError => e
+      raise HudsonApiException.new(e)
     end
 
-    case response
-    when Net::HTTPSuccess, Net::HTTPFound
-      return response.body
-    else
-      raise HudsonApiException.new(response)
-    end
   end
 
   def create_http_connection(uri)
 
-    param = URI.parse( URI.escape(uri) )
+    retval = Net::HTTP.new(uri.host, uri.port)
 
-    if "https" == param.scheme then
-      param.port = 443 if param.port == nil || param.port == ""
-    end
-
-    retval = Net::HTTP.new(param.host, param.port)
-
-    if "https" == param.scheme then
+    if uri.scheme == "https" then
       retval.use_ssl = true
       retval.verify_mode = OpenSSL::SSL::VERIFY_NONE
     end
     
     return retval
+  rescue => e
+    raise e
 
   end
 
-  def create_http_request(uri, auth_user, auth_password)
+  def create_http_request(uri, auth_params, req_type = :get)
     
-    param = URI.parse( URI.escape(uri) )
+    getpath = uri.path
+    getpath += "?" + uri.query if uri.query.present?
 
-    getpath = param.path
-    getpath += "?" + param.query if param.query != nil && param.query.length > 0
-
-    retval = Net::HTTP::Get.new(getpath)
-    retval.basic_auth(auth_user, auth_password) if auth_user != nil && auth_user.length > 0
+    case req_type
+    when :head
+      retval = Net::HTTP::Head.new(getpath)
+    else
+      retval = Net::HTTP::Get.new(getpath)
+    end
+    retval.basic_auth(auth_params[:auth_user], auth_params[:auth_password]) if auth_params[:use_auth]
 
     return retval
+  rescue => e
+    raise e
 
   end
   
