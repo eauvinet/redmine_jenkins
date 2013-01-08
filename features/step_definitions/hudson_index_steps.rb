@@ -44,7 +44,7 @@ end
 
 Then /^I should see artifacts of "([^"]*?)":$/ do |job_name, table|
 
-  page.should have_selector("#build-artifacts-list", visible: true)
+  page.should have_selector("#build-artifacts-list", :visible => true)
 
   actual = all("#build-artifacts-list ul li").map do |li|
     anchor = li.find("a")
@@ -59,7 +59,7 @@ end
 
 Then /^I should see build history:$/ do |histories|
   # wait until build-history element is shown
-  page.should have_selector("#build-history", visible: true)
+  page.should have_selector("#build-history", :visible => true)
 
   actual = find("#build-history").all(".build-entry").map do |entry|
     entry.text.strip.split(" ", 3)

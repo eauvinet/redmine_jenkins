@@ -60,8 +60,8 @@ Given /Issue #(.*) is related to revisions "(.*)"/ do |issue_no, revisions|
   raise Exception.new("issue not found - #{issue_no}") unless issue
 
   revisions.split(/,/).each do |revision|
-    changeset = Changeset.where(repository_id: issue.project.repository.id).
-                          where(revision: revision).
+    changeset = Changeset.where(:repository_id => issue.project.repository.id).
+                          where(:revision => revision).
                           first()
     raise Exception.new("no such changeset - #{issue.project.name} rev-#{revision}") unless changeset
 

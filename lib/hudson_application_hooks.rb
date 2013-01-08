@@ -30,8 +30,8 @@ class HudsonApplicationHooks < Redmine::Hook::ViewListener
 
     if (controller.class.name == 'IssuesController' and action_name == 'show')
       o = ""
-      o << stylesheet_link_tag("hudson.css", plugin: "redmine_hudson", media: "screen") + "\n"
-      o << javascript_include_tag("jquery.build_result_appender.js", plugin: "redmine_hudson") + "\n"
+      o << stylesheet_link_tag("hudson.css", :plugin => "redmine_hudson", :media => "screen") + "\n"
+      o << javascript_include_tag("jquery.build_result_appender.js", :plugin => "redmine_hudson") + "\n"
       return o
     end
 
@@ -67,7 +67,7 @@ class HudsonApplicationHooks < Redmine::Hook::ViewListener
 
       o << "revisions['#{changeset.revision}'] = [];\n"
       builds.each do |build|
-        job = HudsonJob.where(id: build.hudson_job_id).first()
+        job = HudsonJob.where(:id => build.hudson_job_id).first()
         finished_at_tag = link_to(distance_of_time_in_words(Time.now, build.finished_at),
                                   {:controller => 'activities', :action => 'index', :id => job.project.id, :from => build.finished_at.to_date},
                                   :title => format_time(build.finished_at))
