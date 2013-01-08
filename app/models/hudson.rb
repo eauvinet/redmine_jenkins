@@ -18,12 +18,19 @@ class Hudson
     return "#{@settings.url_for(type)}api"
   end
 
-def initialize(project_id)
+  def initialize(project_id)
     @project_id = project_id
     @project = Project.find(project_id)
     @settings = HudsonSettings.find_by_project_id(@project_id)
     find_jobs
     clear_hudson_api_errors
+  end
+
+  def ci_server_name
+    return "" if @settings.url_for(:plugin).blank?
+    return HudsonApi.ci_server_name(@settings.url_for(:plugin),
+                                    @settings.auth_user,
+                                    @settings.auth_password)
   end
 
   def fetch

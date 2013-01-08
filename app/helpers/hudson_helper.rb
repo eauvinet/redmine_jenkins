@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require "uri"
-require 'net/http'
+require File.join( File.dirname(__FILE__), "..", "models", 'hudson_exceptions' )
 
 module HudsonHelper
 
@@ -20,6 +19,21 @@ module HudsonHelper
  
     today = Time.now
     return today.strftime("%Y/%m/%d") == value_time.strftime("%Y/%m/%d")
+  end
+
+  def url_for_ci_server_persona(hudson)
+    return "" if hudson.settings.url.blank?
+
+    ci_server_name = ""
+    begin
+      ci_server_name = hudson.ci_server_name
+    rescue HudsonApiException => e
+      # ignore error
+    end
+
+    return "" if ci_server_name.blank?
+
+    "#{hudson.settings.url}images/#{ci_server_name}.png"
   end
 
   def generate_atom_content(job)

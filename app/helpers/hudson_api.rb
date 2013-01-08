@@ -10,13 +10,13 @@ class HudsonApi
   attr_reader :url, :auth_params
   attr_reader :uri_http, :use_auth
 
-  def self.is_jenkins?(base_url, auth_user, auth_password)
+  def self.ci_server_name(base_url, auth_user, auth_password)
     url = "#{base_url}"
     HudsonApi.new(
       :url           => url,
       :auth_user     => auth_user,
       :auth_password => auth_password
-    ).is_jenkins?
+    ).ci_server_name
   end
 
   def self.get_version(base_url, auth_user, auth_password)
@@ -113,9 +113,10 @@ class HudsonApi
 
   end
 
-  def is_jenkins?
+  def ci_server_name
     res = do_request(:head)
-    res.key?("X-Jenkins")
+    return :jenkins if res.key?("X-Jenkins")
+    return :hudson  if res.key?("X-Hudson")
   end
 
   def version
@@ -133,7 +134,7 @@ class HudsonApi
       http = create_http_connection(@uri_http)
       request = create_http_request(@uri_http, @auth_params, req_type)
     rescue => e
-      raise HudsonApiException::new(e)
+      raise HudsonApiException.new(e)
     end
 
     begin

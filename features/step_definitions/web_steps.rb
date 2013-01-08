@@ -61,6 +61,11 @@ Then /^the field named "(.*?)" should (not be|be) checked$/ do |field, be_or_not
   end
 end
 
+Then /^Background image is "(.*?)"$/ do |image_url|
+  # CAUTION: using Nokogiri::XML::Element
+  page.first('style').native.content.should include(%{background-image: url("#{image_url}")})
+end
+
 Then /^show me the page$/ do 
   save_and_open_page
 end

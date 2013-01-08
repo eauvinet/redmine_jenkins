@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 class HudsonSettings < ActiveRecord::Base
   unloadable
@@ -7,13 +7,14 @@ class HudsonSettings < ActiveRecord::Base
   
   has_many :health_report_settings, :class_name => 'HudsonSettingsHealthReport', :dependent => :destroy
 
-  # 空白を許さないもの
-  validates_presence_of :project_id, :url
-
-  # 重複を許さないもの
+  validates_presence_of   :project_id, :url
   validates_uniqueness_of :project_id
 
   DELIMITER = ','
+
+  @@HUMANIZED_ATTRIBUTE_KEY_NAMES = {
+    "health_report_settings" => I18n.t(:label_health_report_settings)
+  }
 
   def self.add_last_slash(value)
     added = value
@@ -21,6 +22,26 @@ class HudsonSettings < ActiveRecord::Base
     return "" if added.length == 0
     added += "/" unless added.index(/\/$/)
     return added
+  end
+
+  def self.human_attribute_name(attribute_key_name)
+    @@HUMANIZED_ATTRIBUTE_KEY_NAMES[attribute_key_name] || super
+  end
+
+  def self.find_by_project_id(project_id)
+    retval = HudsonSettings.find(:first,  :conditions => "project_id = #{project_id}")
+    retval = HudsonSettings.new() if retval == nil
+    return retval
+  end
+
+  def self.to_array(value)
+    return [] if value == nil
+    return value.split(HudsonSettings::DELIMITER)
+  end
+
+  def self.to_value(value)
+    return "" if value == nil
+    return value.join(HudsonSettings::DELIMITER)
   end
 
   def use_authentication?
@@ -44,29 +65,5 @@ class HudsonSettings < ActiveRecord::Base
     write_attribute(:url, HudsonSettings.add_last_slash(value))
   end
 
-  # エラーメッセージに表示されるbegin, end を日本語名にするために追加。
-  @@HUMANIZED_ATTRIBUTE_KEY_NAMES = {
-    "health_report_settings" => I18n.t(:label_health_report_settings)
-  }
-
-  # attribute_key_name を人が分かる言葉にするためのメソッド。ActiveRecord がそもそも持っているものをカスタマイズ
-  def HudsonSettings.human_attribute_name(attribute_key_name)
-    @@HUMANIZED_ATTRIBUTE_KEY_NAMES[attribute_key_name] || super
-  end
 end
 
-def HudsonSettings.find_by_project_id(project_id)
-  retval = HudsonSettings.find(:first,  :conditions => "project_id = #{project_id}")
-  retval = HudsonSettings.new() if retval == nil
-  return retval
-end
-
-def HudsonSettings.to_array(value)
-  return [] if value == nil
-  return value.split(HudsonSettings::DELIMITER)
-end
-
-def HudsonSettings.to_value(value)
-  return "" if value == nil
-  return value.join(HudsonSettings::DELIMITER)
-end
