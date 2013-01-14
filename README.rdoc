@@ -1,5 +1,5 @@
 # $Id$
-= Hudson Plugin 2.1.0
+= Hudson Plugin 2.1.1
 
 This is a plugin collaborates with Hudson for Redmine.
 
@@ -144,7 +144,15 @@ Use 'delete history' button in setting page.
 * RAILS_ENV=test rake redmine_hudson:db:test:prepare
 * RAILS_ENV=test rake redmine_hudson:cucumber
 
+
 == Changelog
+
+=== 2.1.1
+
+* ##1162 redmine_hudson plugin Gemfile setting
+* ##1160 rake aborted! at "rake db:migrate_plugins RAILS_ENV=production" on ruby1.8.7
+* ##1157 gem 'simplecov' version is conflicted with code review plugin
+
 
 === 2.1.0
 

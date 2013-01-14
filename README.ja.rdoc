@@ -1,5 +1,5 @@
 # $Id$
-= Hudson Plugin 2.1.0
+= Hudson Plugin 2.1.1
 
 Redmie を Hudson と連携させるためのプラグインです。
 
@@ -136,7 +136,21 @@ rake タスクを使って情報を取得する場合は、必ず 自動取得�
 設定ページの履歴を削除 ボタンを使ってデータベースの内容を初期化してみてください。
 状況が改善するかもしれません。
 
+
+== テストの方法
+
+* RAILS_ENV=test rake redmine_hudson:db:test:prepare
+* RAILS_ENV=test rake redmine_hudson:cucumber
+
+
 == 変更履歴
+
+=== 2.1.1
+
+* ##1162 redmine_hudson plugin Gemfile のグループ名を test にしてほしい
+* ##1160 ruby1.8.7 で "rake db:migrate_plugins RAILS_ENV=production" が失敗する
+* ##1157 gem 'simplecov' のバージョンが code review plugin と競合を起こす
+
 
 === 2.1.0
 
