@@ -149,9 +149,9 @@ Use 'delete history' button in setting page.
 
 === 2.1.1
 
-* ##1162 redmine_hudson plugin Gemfile setting
-* ##1160 rake aborted! at "rake db:migrate_plugins RAILS_ENV=production" on ruby1.8.7
-* ##1157 gem 'simplecov' version is conflicted with code review plugin
+* ##1162 (Proposal) redmine_hudson plugin Gemfile setting
+* ##1160 (Defect) rake aborted! at "rake db:migrate_plugins RAILS_ENV=production" on ruby1.8.7
+* ##1157 (Defect) gem 'simplecov' version is conflicted with code review plugin
 
 
 === 2.1.0
