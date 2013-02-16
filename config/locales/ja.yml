@@ -38,6 +38,7 @@ ja:
   label_query_limit_builds_each_job: ジョブごとに追跡するチェンジセットの件数（チケットの検索で利用します）
   label_query_limit_changesets_each_job: ジョブごとに追跡するチェンジセットの件数（チケットの検索で利用します）
   label_use_url_for_plugin: プラグインからアクセスする場合は、上記と異なるURLを使います。
+  label_hudson_server: サーバ
 
   field_hudson_job: Hudson(ジョブ名)
   field_hudson_build: Hudson(Build番号)

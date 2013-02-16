@@ -20,3 +20,4 @@ Feature: sidebar
     Then  I should see links below in sidebar:
       | text     | url                          |
       | Settings | /projects/ecookbook/settings |
+      | Server   | http://localhost:8080/       |

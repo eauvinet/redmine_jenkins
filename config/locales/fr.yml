@@ -37,6 +37,7 @@ fr:
   label_query_limit_builds_each_job: Nombre maximum de constructions par requête
   label_query_limit_changesets_each_job: Nombre maximum de changements par requête
   label_use_url_for_plugin: Le plugin utilise l'URL privée (ci-dessous) pour accéder à Hudson, à la place de l'URL publique (ci-dessus) dédiée aux utilisateurs.
+  label_hudson_server: Server
 
   field_hudson_job: Hudson(Job)
   field_hudson_build: Hudson(BuildNumber)

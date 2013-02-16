@@ -37,6 +37,7 @@ de:
   label_query_limit_builds_each_job: Maximale Anzahl angezeigter Builds bei der Ticketsuche
   label_query_limit_changesets_each_job: Maximale Anzahl angezeigter Changesets bei der Ticketsuche
   label_use_url_for_plugin: Das Plugin verwendet die untenstehende URL um auf den Build Server zu verbinden. Die oben stehende URLs ist nur für die Anzeige beim Benuzer.
+  label_hudson_server: Server
 
   field_hudson_job: Build-Job
   field_hudson_build: Build-Nummer

@@ -37,6 +37,7 @@ en:
   label_query_limit_builds_each_job: Max Number of Builds for query (Using search issues)
   label_query_limit_changesets_each_job: Max Number of Changesets for query (Using search issues)
   label_use_url_for_plugin: Plugin uses below url for access to hudson. Don't use above. ( for user )
+  label_hudson_server: Server
 
   field_hudson_job: Hudson(Job)
   field_hudson_build: Hudson(BuildNumber)

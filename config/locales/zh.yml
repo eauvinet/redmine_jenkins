@@ -37,6 +37,7 @@ zh:
   label_query_limit_builds_each_job: 最大编译请求数
   label_query_limit_changesets_each_job: 最大更新列表请求数 (Using search issues)
   label_use_url_for_plugin: 插件使用下面url链接Hudson服务器。用户使用上面链接。
+  label_hudson_server: Server
 
   field_hudson_job: Hudson(任务)
   field_hudson_build: Hudson(生成数)
