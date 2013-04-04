@@ -11,9 +11,9 @@ class HudsonApplicationHooks < Redmine::Hook::ViewListener
     action_name = controller.action_name
     return '' unless action_name
 
-    baseurl = url_for(:controller => 'hudson', :action => 'index', :id => project) + '/../../..'
+    baseurl = Redmine::Utils.relative_url_root
 
-    if (controller.class.name == 'ProjectsController' and action_name == 'activity')
+    if (controller.class.name == 'ActivitiesController' and action_name == 'index')
       hudson = Hudson.find_by_project_id(project.id)
       return '' unless hudson.settings.url
       o = ""
