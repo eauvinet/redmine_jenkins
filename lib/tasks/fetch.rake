@@ -1,7 +1,7 @@
-desc 'Fetch buildresults from the Hudson'
+desc 'Fetch buildresults from the Jenkins'
 
-namespace :redmine_hudson do
+namespace :redmine_jenkins do
   task :fetch => :environment do
-    Hudson.fetch
+    Jenkins.fetch
   end
 end

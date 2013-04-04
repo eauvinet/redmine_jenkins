@@ -9,7 +9,7 @@ Given /^HudsonApi.ci_server_name returns (.*?)$/ do |ret|
 end
 
 def get_response(name)
-  f = open "#{Rails.root}/plugins/redmine_hudson/features/responses/#{name}.xml"
+  f = open "#{Rails.root}/plugins/redmine_jenkins/features/responses/#{name}.xml"
   retval = f.read
   f.close
   return retval

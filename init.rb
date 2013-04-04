@@ -3,15 +3,15 @@ require 'redmine'
 require 'hudson_application_hooks'
 require 'query_patch'
 
-Redmine::Plugin.register :redmine_hudson do
-  name 'Redmine Hudson plugin'
+Redmine::Plugin.register :redmine_jenkins do
+  name 'Redmine Jenkins plugin'
   author 'Toshiyuki Ando r-labs'
   url "http://www.r-labs.org/repositories/show/hudson" if respond_to?(:url)
-  description 'This is a Hudson plugin for Redmine'
+  description 'This is a Jenkins plugin for Redmine'
   version '2.1.1'
   requires_redmine :version_or_higher => '2.1.0'
 
-  project_module :hudson do
+  project_module :jenkins do
     # パーミッション設定。
     permission :view_hudson, {:hudson => [:index, :history]}
     permission :build_hudson, {:hudson => [:build]}, :require => :member
@@ -47,6 +47,6 @@ end
 
 Rails.configuration.to_prepare do
   unless Query.included_modules.include? RedmineHudson::RedmineExt::QueryPatch
-    Query.send( :include, RedmineHudson::RedmineExt::QueryPatch)
+    Query.send(:include, RedmineHudson::RedmineExt::QueryPatch)
   end
 end

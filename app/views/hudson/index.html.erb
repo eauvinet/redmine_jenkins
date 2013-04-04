@@ -37,9 +37,8 @@
           <%=link_to "##{job.latest_build.number}", job.latest_build.url_for(:user), :class => 'number' %>
           <%=content_tag("span", job.latest_build.result, :class => "result #{job.latest_build.result.downcase}") if true != job.latest_build.building? && job.latest_build.result.present? %>
           <%=content_tag("span", l(:notice_building), :class => "result") if job.latest_build.building? %>
-          <% today_tag = "" %>
-          <% today_tag = " " + image_tag("today.png", :plugin => "redmine_hudson", :title => l(:label_todays_build)) if is_today?(job.latest_build.finished_at) %>
-          <%=content_tag("span", job.latest_build.finished_at.localtime.strftime("%Y/%m/%d %H:%M:%S"), :class => 'finished-at') + today_tag.html_safe if job.latest_build.finished_at %>
+          <%=content_tag("span", job.latest_build.finished_at.localtime.strftime("%Y/%m/%d %H:%M:%S")) if job.latest_build.finished_at%>
+          <%=image_tag("today.png", :plugin => "redmine_jenkins", :title => l(:label_todays_build)) if is_today?(job.latest_build.finished_at)%>
         <% end %>
         <%=l(:notice_no_builds) if "" == job.latest_build.number%>
       <% end %>
@@ -117,10 +116,10 @@ $(document).ready(function() {
 </script>
 
 <% content_for :header_tags do %>
-  <%= stylesheet_link_tag "hudson.css", :plugin => "redmine_hudson", :media => "screen" %>
-  <%= javascript_include_tag 'jquery.outerHtml.js', :plugin => "redmine_hudson" %>
-  <%= javascript_include_tag 'jquery.build_history_controller.js', :plugin => "redmine_hudson" %>
-  <%= javascript_include_tag 'jquery.build_artifacts_controller.js', :plugin => "redmine_hudson" %>
-  <%= javascript_include_tag 'jquery.build_request_controller.js', :plugin => "redmine_hudson" %>
-  <%= javascript_include_tag 'jquery.description_visibility_controller.js', :plugin => "redmine_hudson" %>
+  <%= stylesheet_link_tag "hudson.css", :plugin => "redmine_jenkins", :media => "screen" %>
+  <%= javascript_include_tag 'jquery.outerHtml.js', :plugin => "redmine_jenkins" %>
+  <%= javascript_include_tag 'jquery.build_history_controller.js', :plugin => "redmine_jenkins" %>
+  <%= javascript_include_tag 'jquery.build_artifacts_controller.js', :plugin => "redmine_jenkins" %>
+  <%= javascript_include_tag 'jquery.build_request_controller.js', :plugin => "redmine_jenkins" %>
+  <%= javascript_include_tag 'jquery.description_visibility_controller.js', :plugin => "redmine_jenkins" %>
 <% end %>
