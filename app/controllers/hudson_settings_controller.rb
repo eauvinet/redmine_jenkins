@@ -50,7 +50,8 @@ class HudsonSettingsController < ApplicationController
     find_hudson_jobs
 
   rescue HudsonApiException => error
-    flash.now[:error] = error.message
+    # Unescaped message can be returned in case sucn as REXML::ParseException, so escape is required....
+    flash.now[:error] = ERB::Util.html_escape(error.message)
   end
 
   def joblist
