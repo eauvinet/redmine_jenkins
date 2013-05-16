@@ -159,7 +159,7 @@ private
   def fetch_summary
     api_url = rss_url_for(:plugin)
     begin
-      content = HudsonApi.open(api_url, self.settings.auth_user, self.settings.auth_password)
+      content = HudsonApi.get_recent_builds(api_url, self.settings.auth_user, self.settings.auth_password)
     rescue HudsonApiException => error
       raise error
     end
