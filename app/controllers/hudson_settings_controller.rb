@@ -50,7 +50,8 @@ class HudsonSettingsController < ApplicationController
     find_hudson_jobs
 
   rescue HudsonApiException => error
-    flash.now[:error] = error.message
+    # Unescaped message can be returned in case sucn as REXML::ParseException, so escape is required....
+    flash.now[:error] = ERB::Util.html_escape(error.message)
   end
 
   def joblist
@@ -124,14 +125,18 @@ private
   def find_hudson_jobs()
     @jobs = []
 
-    api_url = @hudson.api_url_for(:plugin)
-    return if api_url == nil || api_url.length == 0
+    begin
+      api_url = @hudson.api_url_for(:plugin)
+      return if api_url == nil || api_url.length == 0
 
-    # Open the feed and parse it
-    content = HudsonApi.get_job_list(api_url, @hudson.settings.auth_user, @hudson.settings.auth_password)
-    doc = REXML::Document.new content
-    doc.elements.each("hudson/job") do |element|
-      @jobs << get_element_value(element, "name")
+      # Open the feed and parse it
+      content = HudsonApi.get_job_list(api_url, @hudson.settings.auth_user, @hudson.settings.auth_password)
+      doc = REXML::Document.new content
+      doc.elements.each("hudson/job") do |element|
+        @jobs << get_element_value(element, "name")
+      end
+    rescue => e
+      raise HudsonApiException.new(e)
     end
   end
 

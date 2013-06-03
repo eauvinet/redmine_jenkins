@@ -39,7 +39,7 @@ class HudsonApiException < Exception
       @message = I18n.t :notice_err_invalid_url
     
     when REXML::ParseException
-      @message = I18n.t :notice_err_response_invalid, :description => truncate(object.to_s, :length => 50)
+      @message = I18n.t :notice_err_response_invalid, :description => truncate(object.to_s, :length => 100)
     
     else
       # ruby1.8.7 returns error - "undefined method `closed?' for nil:NilClass" when can't connect server ???
