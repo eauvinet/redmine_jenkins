@@ -21,4 +21,4 @@ Feature: project activity
      And I click "Apply"
     Then I should see build results in Activity:
         | activity                                 | activity url                                        | activity detail | activity author |
-        | Build simple-ruby-application 5: SUCCESS | http://localhost:8080/job/simple-ruby-application/5 | Changesets: r2  | redMine Admin   |
+        | Build simple-ruby-application 5: SUCCESS | http://localhost:8080/job/simple-ruby-application/5 | Changesets: r2  | Redmine Admin   |

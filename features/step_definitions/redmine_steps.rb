@@ -47,6 +47,16 @@ end
 Given /^I am logged in as "([^"]*)" with password "([^"]*)"$/ do |login_name, password|
   steps %Q{
     When I go to "login"
+  }
+
+  if page.has_content?("Logged in as") == true then
+    steps %Q{
+      When I click "Sign out"
+      When I go to "login"
+    }
+  end
+
+  steps %Q{
      And I fill in "#{login_name}" for "Login"
      And I fill in "#{password}" for "Password"
      And I click "Login »"
