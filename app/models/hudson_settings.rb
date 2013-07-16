@@ -7,6 +7,8 @@ class HudsonSettings < ActiveRecord::Base
   
   has_many :health_report_settings, :class_name => 'HudsonSettingsHealthReport', :dependent => :destroy
 
+  attr_accessible :url, :url_for_plugin
+
   validates_presence_of   :project_id, :url
   validates_uniqueness_of :project_id
 
@@ -15,14 +17,6 @@ class HudsonSettings < ActiveRecord::Base
   @@HUMANIZED_ATTRIBUTE_KEY_NAMES = {
     "health_report_settings" => I18n.t(:label_health_report_settings)
   }
-
-  def self.add_last_slash(value)
-    added = value
-    return "" unless added
-    return "" if added.length == 0
-    added += "/" unless added.index(/\/$/)
-    return added
-  end
 
   def self.human_attribute_name(attribute_key_name)
     @@HUMANIZED_ATTRIBUTE_KEY_NAMES[attribute_key_name] || super
@@ -44,6 +38,14 @@ class HudsonSettings < ActiveRecord::Base
     return value.join(HudsonSettings::DELIMITER)
   end
 
+  def url=(value)
+    write_attribute :url, add_last_slash(value)
+  end
+
+  def url_for_plugin=(value)
+    write_attribute :url_for_plugin, add_last_slash(value)
+  end
+
   def use_authentication?
     return false unless self.auth_user
     return false unless self.auth_user.length > 0
@@ -61,8 +63,12 @@ class HudsonSettings < ActiveRecord::Base
     return self.url
   end
 
-  def url=(value)
-    write_attribute(:url, HudsonSettings.add_last_slash(value))
+  def add_last_slash(value)
+    added = value
+    return "" unless added
+    return "" if added.length == 0
+    added += "/" unless added.index(/\/$/)
+    return added
   end
 
 end

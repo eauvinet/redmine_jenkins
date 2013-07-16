@@ -30,9 +30,6 @@ class HudsonSettingsController < ApplicationController
 
       @hudson.settings.job_filter = HudsonSettings.to_value(jobs)
       @hudson.settings.url_for_plugin = "" unless ( check_box_to_boolean(params[:enable_url_for_plugin]) )
-      @hudson.settings.url = HudsonSettings.add_last_slash(@hudson.settings.url)
-      @hudson.settings.url_for_plugin = HudsonSettings.add_last_slash(@hudson.settings.url_for_plugin)
-
 
       success_to_save = @hudson.settings.save
 
@@ -60,9 +57,9 @@ class HudsonSettingsController < ApplicationController
       # この find は、外部のサーバ(Hudson)にアクセスするので、before_filter には入れない
       # ジョブの一覧を取得するためだけなので、設定に一時値は反映するけれど、保存はしない
       @hudson.settings = HudsonSettings.new unless @hudson.settings
-      @hudson.settings.url = HudsonSettings.add_last_slash(params[:url])
+      @hudson.settings.url = params[:url]
       @hudson.settings.url_for_plugin = ""
-      @hudson.settings.url_for_plugin = HudsonSettings.add_last_slash(params[:url_for_plugin]) if ( check_box_to_boolean(params[:enable_url_for_plugin]) )
+      @hudson.settings.url_for_plugin = params[:url_for_plugin] if ( check_box_to_boolean(params[:enable_url_for_plugin]) )
 
       find_hudson_jobs
     rescue HudsonApiException => error
