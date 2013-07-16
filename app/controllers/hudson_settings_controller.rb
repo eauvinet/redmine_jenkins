@@ -23,12 +23,9 @@ class HudsonSettingsController < ApplicationController
   def edit
     if (params[:hudson_settings] != nil)
 
-      jobs = params[:hudson_settings].delete :jobs
-
       @hudson.settings.project_id = @project.id
       @hudson.settings.attributes = params[:hudson_settings]
 
-      @hudson.settings.job_filter = HudsonSettings.to_value(jobs)
       @hudson.settings.url_for_plugin = "" unless ( check_box_to_boolean(params[:enable_url_for_plugin]) )
 
       success_to_save = @hudson.settings.save
@@ -181,7 +178,7 @@ private
   end
 
   def add_job
-    HudsonSettings.to_array(@hudson.settings.job_filter).each do |job_name|
+    @hudson.settings.jobs.each do |job_name|
       next if @hudson.get_job(job_name).is_a?(HudsonJob)
       job = @hudson.add_job(job_name)
       job.save!
