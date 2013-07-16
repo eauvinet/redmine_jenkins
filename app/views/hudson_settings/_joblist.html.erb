@@ -22,7 +22,7 @@
   <% @jobs.each do |job_name| %>
     <% job = @hudson.get_job(job_name) -%>
     <tr class="<%= cycle('odd', 'even')%>">
-    <td class="checkbox"><%= check_box_tag 'settings[jobs][]', job_name, @hudson.settings.job_include?(job_name) %></td>
+    <td class="checkbox"><%= check_box_tag 'hudson_settings[jobs][]', job_name, @hudson.settings.job_include?(job_name) %></td>
     <% linked_job_name = link_to(job_name, job.url_for(:user)) %>
     <% number_of_build = HudsonBuild.count_of(job) -%>
     <td class="job-name"><%= linked_job_name %></td>
@@ -44,7 +44,7 @@
   <% end %>
   </table>
 <% end %>
- <%= hidden_field_tag 'settings[jobs][]', '' %>
- <%= hidden_field_tag 'job_settings[-1]', '' %>
+ <%= hidden_field_tag 'hudson_settings[jobs][]', '' %>
+ <%= hidden_field_tag 'hudson_job_settings[-1]', '' %>
 </p>
 </div>

@@ -17,19 +17,19 @@ Feature: Show and Edit hudson Basic Settings
   Scenario: Add new project settings
     When I go to HudsonSettings at "eCookbook" Project
     Then I should see "Settings"
-    When I fill in "http://localhost:8080" for "settings[url]"
+    When I fill in "http://localhost:8080" for "hudson_settings[url]"
      And I click "Save"
-    Then the field named "settings[url]" should contain "http://localhost:8080/"
+    Then the field named "hudson_settings[url]" should contain "http://localhost:8080/"
 
   @javascript
   Scenario: Add HealthReport settings
     When  I go to HudsonSettings at "eCookbook" Project
-     And  I fill in "http://localhost:8080" for "settings[url]"
+     And  I fill in "http://localhost:8080" for "hudson_settings[url]"
      And  I add health report settings below:
           | keyword         | url_format                                   |
           | Build stability | http://hoge.com/hudson/simple-job/lastBuild/ |
      And  I click "Save"
-    Then  the field named "settings[url]" should contain "http://localhost:8080/"
+    Then  the field named "hudson_settings[url]" should contain "http://localhost:8080/"
      And  I should see health report settings below:
           | keyword         | url_format                                   |
           | Build stability | http://hoge.com/hudson/simple-job/lastBuild/ |
@@ -37,7 +37,7 @@ Feature: Show and Edit hudson Basic Settings
   @javascript
   Scenario: Add HealthReport settings
     When I go to HudsonSettings at "eCookbook" Project
-     And I fill in "http://localhost:8080" for "settings[url]"
+     And I fill in "http://localhost:8080" for "hudson_settings[url]"
      And  I add health report settings below:
           | keyword         | url_format                                   |
           | Build stability | http://hoge.com/hudson/simple-job/lastBuild/ |

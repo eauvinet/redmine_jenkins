@@ -21,17 +21,18 @@ class HudsonSettingsController < ApplicationController
   before_filter :clear_flash
 
   def edit
-    if (params[:settings] != nil)
+    if (params[:hudson_settings] != nil)
+
+      jobs = params[:hudson_settings].delete :jobs
+
       @hudson.settings.project_id = @project.id
-      @hudson.settings.url = HudsonSettings.add_last_slash(params[:settings].fetch(:url))
-      @hudson.settings.url_for_plugin = ""
-      @hudson.settings.url_for_plugin = HudsonSettings.add_last_slash(params[:settings].fetch(:url_for_plugin)) if ( check_box_to_boolean(params[:enable_url_for_plugin]) )
-      @hudson.settings.job_filter = HudsonSettings.to_value(params[:settings].fetch(:jobs))
-      @hudson.settings.auth_user = params[:settings].fetch(:auth_user)
-      @hudson.settings.auth_password = params[:settings].fetch(:auth_password)
-      @hudson.settings.get_build_details = check_box_to_boolean(params[:settings][:get_build_details])
-      @hudson.settings.show_compact = check_box_to_boolean(params[:settings][:show_compact])
-      @hudson.settings.look_and_feel = params[:settings].fetch(:look_and_feel)
+      @hudson.settings.attributes = params[:hudson_settings]
+
+      @hudson.settings.job_filter = HudsonSettings.to_value(jobs)
+      @hudson.settings.url_for_plugin = "" unless ( check_box_to_boolean(params[:enable_url_for_plugin]) )
+      @hudson.settings.url = HudsonSettings.add_last_slash(@hudson.settings.url)
+      @hudson.settings.url_for_plugin = HudsonSettings.add_last_slash(@hudson.settings.url_for_plugin)
+
 
       success_to_save = @hudson.settings.save
 
