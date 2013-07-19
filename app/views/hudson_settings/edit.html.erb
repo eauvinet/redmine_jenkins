@@ -15,7 +15,11 @@
     <%=f.text_field :auth_user, :size=>20 %></p>
 
   <p><label><%=t(:field_password)%></label>
-    <%=f.password_field :auth_password, :size=>20, :value=>@settings.auth_password %></p>
+  <%=f.password_field :auth_password, :size=>20, :name=>'ignore_auth_password', 
+                      :value => ((@settings.new_record? || @settings.auth_password.blank?) ? '' : ('*'*5)),
+                      :onfocus => "this.value=''; this.name='hudson_settings[auth_password]';",
+                      :onchange => "this.name='hudson_settings[auth_password]';"
+   %></p>
    
   <p><label><%=t(:label_get_build_details)%></label><%=f.check_box :get_build_details, {}, 'true'%> <%=t(:notice_get_build_details)%></p>
   

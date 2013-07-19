@@ -27,6 +27,14 @@ When /^I check "([^"]*)"$/ do |field|
   end
 end
 
+When /^I choose "([^"]*)"$/ do |field|
+  choose field
+end
+
+When /^I select "([^"]*)" from "([^"]*)"$/ do |option, field|
+  select option, :from => field
+end
+
 Then /^I (should|should not) see "([^"]*)"(| within "([^"]*)")$/ do |should_or_not, content, work, area|
   area = "html" unless area
   page.within(area) do

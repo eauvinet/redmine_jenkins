@@ -7,7 +7,8 @@ class HudsonSettings < ActiveRecord::Base
   
   has_many :health_report_settings, :class_name => 'HudsonSettingsHealthReport', :dependent => :destroy
 
-  attr_accessible :url, :url_for_plugin
+  attr_accessible :url, :url_for_plugin, :auth_user, :auth_password
+  attr_accessible :get_build_details, :get_build_details, :show_compact, :look_and_feel
   attr_accessible :jobs
 
   validates_presence_of   :project_id, :url
