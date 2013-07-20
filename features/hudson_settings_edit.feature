@@ -31,14 +31,12 @@ Feature: Show and Edit hudson Basic Settings
      And I fill in "test" for "hudson_settings[auth_user]"
      And I fill in "pass" for "ignore_auth_password"
      And I check "hudson_settings[show_compact]"
-     And I choose "hudson_settings_look_and_feel_plugin"
      And I click "Save"
     Then the field named "hudson_settings[url]" should contain "http://localhost:8080/"
      And the field named "enable_url_for_plugin" should be checked
      And the field named "hudson_settings[url_for_plugin]" should contain "http://127.0.0.1:8080/"
      And the field named "hudson_settings[auth_user]" should contain "test"
      And the field named "hudson_settings[show_compact]" should be checked
-     And the field named "hudson_settings_look_and_feel_plugin" should be checked
      And the HudsonSetting model should be below:
        | project   | auth_user | auth_password |
        | eCookbook | test      | pass          |

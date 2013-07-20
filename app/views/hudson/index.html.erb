@@ -4,8 +4,7 @@
   background-position: left bottom;
   background-repeat: no-repeat;
 }
-<%= render :partial => 'icon_style_hudson' if @hudson.settings.look_and_feel == 'Hudson' %>
-<%= render :partial => 'icon_style_plugin' if @hudson.settings.look_and_feel == 'Plugin' %>
+<%= render :partial => 'icon_style_hudson' %>
 -->
 </style>
 <div class="contextual">
@@ -22,9 +21,8 @@
 
   <% @hudson.jobs.each do |job|%>
     <% next unless @hudson.settings.job_include?(job.name) %>
-    <div class="contextual<%='-icon24' if @hudson.settings.look_and_feel == 'Hudson'%>">
-    <% build_icon = image_tag("#{@hudson.settings.url}images/24x24/clock.gif", :alt => 'build', :class=>'icon-build-request', :id=>"build-request-#{job.id}", :title => l(:label_build_now)) if @hudson.settings.look_and_feel == 'Hudson' %>
-    <% build_icon = "[#{l(:label_build_now)}]" if @hudson.settings.look_and_feel == 'Plugin' %>
+    <div class="contextual-icon24">
+    <% build_icon = image_tag("#{@hudson.settings.url}images/24x24/clock.gif", :alt => 'build', :class=>'icon-build-request', :id=>"build-request-#{job.id}", :title => l(:label_build_now)) %>
     <%= build_icon if authorize_for( "hudson", "build" ) %>
     </div>
 
@@ -46,9 +44,7 @@
     </div>
 
     <div class="job-state" id="job-state-<%="#{job.id}"%>">
-    <% icon_base_class = "icon24" if @hudson.settings.look_and_feel == 'Hudson' %>
-    <% icon_base_class = "icon" if @hudson.settings.look_and_feel == 'Plugin' %>
-    <h3 class="<%=icon_base_class%> icon-<%=job.state%>" id="job-name-<%="#{job.id}"%>"><%=link_to job.name, job.url_for(:user)%></h3>
+    <h3 class="icon24 icon-<%=job.state%>" id="job-name-<%="#{job.id}"%>"><%=link_to job.name, job.url_for(:user)%></h3>
       <div class="wiki job-description">
         <% if Hudson.job_description_format == "textile" %>
           <%= textilizable job.description %>

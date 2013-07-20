@@ -18,9 +18,6 @@ fr:
   label_health_report_test_result: HealthReport:TestResult
   label_database: Base de données
   label_get_build_details: Obtenir les détails de construction (changements et résultats de test)
-  label_look_and_feel: Thème (icônes seules)
-  label_look_and_feel_hudson: Hudson
-  label_look_and_feel_plugin: Plugin
   label_add_health_report: Ajouter un paramètre de Rapport de santé
   label_health_report: Rapport de santé
   label_health_report_settings: Configuration du Rapport de santé

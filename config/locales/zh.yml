@@ -18,9 +18,6 @@ zh:
   label_health_report_test_result: 项目健康报告:测试结果
   label_database: 数据库
   label_get_build_details: 详细报告 (更新列表和测试报告)
-  label_look_and_feel: 界面 (只用图标)
-  label_look_and_feel_hudson: Hudson
-  label_look_and_feel_plugin: 使用插件原生
   label_add_health_report: 添加项目健康报告
   label_health_report: 项目健康报告
   label_health_report_settings: 项目健康报告设置

@@ -1,3 +1,4 @@
+<%= content_tag "div", @error_message if @error_message%>
 <h2><%=t(:label_settings)%></h2>
 
 <%= error_messages_for 'settings' %>
@@ -25,10 +26,6 @@
   
   <p><label><%=t(:label_show_compact)%></label><%=f.check_box :show_compact, {}, 'true'%></p>
   
-  <p><label><%=t(:label_look_and_feel)%></label>
-     <%=f.radio_button :look_and_feel, 'Hudson'%> <%=t(:label_look_and_feel_hudson)%><br>
-     <%=f.radio_button :look_and_feel,  'Plugin'%> <%=t(:label_look_and_feel_plugin)%>
-  </p>
 </div>
 
 <fieldset class="box"><legend><%=t(:label_health_report)%></legend>

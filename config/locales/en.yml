@@ -18,9 +18,6 @@ en:
   label_health_report_test_result: HealthReport:TestResult
   label_database: DataBase
   label_get_build_details: Get Build Details (changesets and test-results)
-  label_look_and_feel: Look and Feel (only icons)
-  label_look_and_feel_hudson: Hudson
-  label_look_and_feel_plugin: Plugin original
   label_add_health_report: Add HealthReport Setting
   label_health_report: Health Report
   label_health_report_settings: Health Report Settings
