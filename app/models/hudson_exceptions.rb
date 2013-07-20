@@ -46,7 +46,7 @@ class HudsonApiException < Exception
       if "undefined method `closed?' for nil:NilClass" == object.message
         @message = I18n.t :notice_err_cant_connect, :description => object.message
       else
-        @message = I18n.t :notice_err_unknown, :description => object.message
+        @message = I18n.t :notice_err_unknown, :description => truncate(object.message, :length => 100)
       end
     end
   end
