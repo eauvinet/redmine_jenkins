@@ -95,7 +95,7 @@ class HudsonApi
       :url           => url,
       :auth_user     => auth_user,
       :auth_password => auth_password
-    ).get
+    ).post
   end
 
   def initialize(params)
@@ -126,6 +126,10 @@ class HudsonApi
 
   def get
     do_request(:get).body
+  end
+
+  def post
+    do_request(:post).body
   end
 
   def do_request(req_type)
@@ -168,6 +172,8 @@ class HudsonApi
     case req_type
     when :head
       retval = Net::HTTP::Head.new(getpath)
+    when :post
+      retval = Net::HTTP::Post.new(getpath)
     else
       retval = Net::HTTP::Get.new(getpath)
     end
