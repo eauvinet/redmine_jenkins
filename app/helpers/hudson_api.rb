@@ -39,14 +39,13 @@ class HudsonApi
   end
 
   def self.get_job_details(api_url, auth_user, auth_password)
-    url = "#{api_url}/xml?depth=1"
-    url << "&xpath=/hudson"
-    url << "&exclude=/hudson/view"
-    url << "&exclude=/hudson/primaryView"
-    url << "&exclude=/hudson/job/build"
-    url << "&exclude=/hudson/job/lastCompletedBuild"
-    url << "&exclude=/hudson/job/lastStableBuild"
-    url << "&exclude=/hudson/job/lastSuccessfulBuild"
+    url = "#{api_url}/xml?tree"
+    url << "jobs["
+    url << "name,displayName,url,color,"
+    url << "lastBuild[number,url],"
+    url << "lastFailedBuild[number,url],"
+    url << "lastUnsuccessfulBuil[number,url],"
+    url << "nextBuildNumber]"
 
     HudsonApi.new(
       :url           => url,
