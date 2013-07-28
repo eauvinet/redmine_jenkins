@@ -39,13 +39,15 @@ class HudsonApi
   end
 
   def self.get_job_details(api_url, auth_user, auth_password)
-    url = "#{api_url}/xml?tree"
+    url = "#{api_url}/xml?depth=1&tree"
     url << "jobs["
-    url << "name,displayName,url,color,"
-    url << "lastBuild[number,url],"
-    url << "lastFailedBuild[number,url],"
-    url << "lastUnsuccessfulBuil[number,url],"
-    url << "nextBuildNumber]"
+    url << "name,description,displayName,url,color"
+    url << ",lastBuild[number,url]"
+    url << ",lastFailedBuild[number,url]"
+    url << ",lastUnsuccessfulBuil[number,url]"
+    url << ",nextBuildNumber"
+    url << ",healthReport[description,score,url]"
+    url << "]"
 
     HudsonApi.new(
       :url           => url,
