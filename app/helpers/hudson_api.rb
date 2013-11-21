@@ -39,14 +39,15 @@ class HudsonApi
   end
 
   def self.get_job_details(api_url, auth_user, auth_password)
-    url = "#{api_url}/xml?depth=1"
-    url << "&xpath=/hudson"
-    url << "&exclude=/hudson/view"
-    url << "&exclude=/hudson/primaryView"
-    url << "&exclude=/hudson/job/build"
-    url << "&exclude=/hudson/job/lastCompletedBuild"
-    url << "&exclude=/hudson/job/lastStableBuild"
-    url << "&exclude=/hudson/job/lastSuccessfulBuild"
+    url = "#{api_url}/xml?depth=1&tree"
+    url << "jobs["
+    url << "name,description,displayName,url,color"
+    url << ",lastBuild[number,url]"
+    url << ",lastFailedBuild[number,url]"
+    url << ",lastUnsuccessfulBuil[number,url]"
+    url << ",nextBuildNumber"
+    url << ",healthReport[description,score,url]"
+    url << "]"
 
     HudsonApi.new(
       :url           => url,
@@ -95,7 +96,7 @@ class HudsonApi
       :url           => url,
       :auth_user     => auth_user,
       :auth_password => auth_password
-    ).get
+    ).post
   end
 
   def initialize(params)
@@ -126,6 +127,10 @@ class HudsonApi
 
   def get
     do_request(:get).body
+  end
+
+  def post
+    do_request(:post).body
   end
 
   def do_request(req_type)
@@ -168,6 +173,8 @@ class HudsonApi
     case req_type
     when :head
       retval = Net::HTTP::Head.new(getpath)
+    when :post
+      retval = Net::HTTP::Post.new(getpath)
     else
       retval = Net::HTTP::Get.new(getpath)
     end

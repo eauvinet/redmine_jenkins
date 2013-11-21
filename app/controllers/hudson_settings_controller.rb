@@ -21,17 +21,12 @@ class HudsonSettingsController < ApplicationController
   before_filter :clear_flash
 
   def edit
-    if (params[:settings] != nil)
+    if (params[:hudson_settings] != nil)
+
       @hudson.settings.project_id = @project.id
-      @hudson.settings.url = HudsonSettings.add_last_slash(params[:settings].fetch(:url))
-      @hudson.settings.url_for_plugin = ""
-      @hudson.settings.url_for_plugin = HudsonSettings.add_last_slash(params[:settings].fetch(:url_for_plugin)) if ( check_box_to_boolean(params[:enable_url_for_plugin]) )
-      @hudson.settings.job_filter = HudsonSettings.to_value(params[:settings].fetch(:jobs))
-      @hudson.settings.auth_user = params[:settings].fetch(:auth_user)
-      @hudson.settings.auth_password = params[:settings].fetch(:auth_password)
-      @hudson.settings.get_build_details = check_box_to_boolean(params[:settings][:get_build_details])
-      @hudson.settings.show_compact = check_box_to_boolean(params[:settings][:show_compact])
-      @hudson.settings.look_and_feel = params[:settings].fetch(:look_and_feel)
+      @hudson.settings.attributes = params[:hudson_settings]
+
+      @hudson.settings.url_for_plugin = "" unless ( check_box_to_boolean(params[:enable_url_for_plugin]) )
 
       success_to_save = @hudson.settings.save
 
@@ -59,9 +54,9 @@ class HudsonSettingsController < ApplicationController
       # この find は、外部のサーバ(Hudson)にアクセスするので、before_filter には入れない
       # ジョブの一覧を取得するためだけなので、設定に一時値は反映するけれど、保存はしない
       @hudson.settings = HudsonSettings.new unless @hudson.settings
-      @hudson.settings.url = HudsonSettings.add_last_slash(params[:url])
+      @hudson.settings.url = params[:url]
       @hudson.settings.url_for_plugin = ""
-      @hudson.settings.url_for_plugin = HudsonSettings.add_last_slash(params[:url_for_plugin]) if ( check_box_to_boolean(params[:enable_url_for_plugin]) )
+      @hudson.settings.url_for_plugin = params[:url_for_plugin] if ( check_box_to_boolean(params[:enable_url_for_plugin]) )
 
       find_hudson_jobs
     rescue HudsonApiException => error
@@ -183,7 +178,7 @@ private
   end
 
   def add_job
-    HudsonSettings.to_array(@hudson.settings.job_filter).each do |job_name|
+    @hudson.settings.jobs.each do |job_name|
       next if @hudson.get_job(job_name).is_a?(HudsonJob)
       job = @hudson.add_job(job_name)
       job.save!

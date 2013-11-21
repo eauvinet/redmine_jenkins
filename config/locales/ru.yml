@@ -18,9 +18,6 @@ ru:
   label_health_report_test_result: Результаты тестов
   label_database: База данных
   label_get_build_details: Детальная информация (изменения и результаты тестов)
-  label_look_and_feel: Внешний вид (только иконки)
-  label_look_and_feel_hudson: Хадсон
-  label_look_and_feel_plugin: Оригинальные
   label_add_health_report: Добавить отчёт о состоянии
   label_health_report: Отчёт о состоянии
   label_health_report_settings: Настройки отчёта о состоянии

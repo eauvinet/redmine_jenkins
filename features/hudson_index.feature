@@ -15,7 +15,7 @@ Feature: index
      And  HudsonApi.get_build_results returns "simple/job_simple-ruby-application_build_results"
 
     When  I go to HudsonSettings at "eCookbook" Project
-     And  I fill in "http://localhost:8080" for "settings[url]"
+     And  I fill in "http://localhost:8080" for "hudson_settings[url]"
      And  I click "Save"
      And  I check "simple-ruby-application"
      And  I click "Save"

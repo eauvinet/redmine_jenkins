@@ -18,9 +18,6 @@ de:
   label_health_report_test_result: Statusbericht:Testergebnisse
   label_database: Datenbank
   label_get_build_details: Builddetails anzeigen (Changesets und Tests)
-  label_look_and_feel: Look and Feel (nur Icons)
-  label_look_and_feel_hudson: CI Build
-  label_look_and_feel_plugin: Originalaussehen
   label_add_health_report: Statusbericht erstellen
   label_health_report: Statusbericht
   label_health_report_settings: Statusbericht Einstellungen

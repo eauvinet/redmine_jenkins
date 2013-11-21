@@ -12,7 +12,7 @@ Feature: sidebar
       And I am logged in as "dlopper" with password "foo"
 
     When  I go to HudsonSettings at "eCookbook" Project
-     And  I fill in "http://localhost:8080" for "settings[url]"
+     And  I fill in "http://localhost:8080" for "hudson_settings[url]"
      And  I click "Save"
 
   Scenario: Plugin can show links in sidebar

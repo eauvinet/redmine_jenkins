@@ -7,6 +7,10 @@ class HudsonSettings < ActiveRecord::Base
   
   has_many :health_report_settings, :class_name => 'HudsonSettingsHealthReport', :dependent => :destroy
 
+  attr_accessible :url, :url_for_plugin, :auth_user, :auth_password
+  attr_accessible :get_build_details, :get_build_details, :show_compact
+  attr_accessible :jobs
+
   validates_presence_of   :project_id, :url
   validates_uniqueness_of :project_id
 
@@ -15,14 +19,6 @@ class HudsonSettings < ActiveRecord::Base
   @@HUMANIZED_ATTRIBUTE_KEY_NAMES = {
     "health_report_settings" => I18n.t(:label_health_report_settings)
   }
-
-  def self.add_last_slash(value)
-    added = value
-    return "" unless added
-    return "" if added.length == 0
-    added += "/" unless added.index(/\/$/)
-    return added
-  end
 
   def self.human_attribute_name(attribute_key_name)
     @@HUMANIZED_ATTRIBUTE_KEY_NAMES[attribute_key_name] || super
@@ -34,14 +30,20 @@ class HudsonSettings < ActiveRecord::Base
     return retval
   end
 
-  def self.to_array(value)
-    return [] if value == nil
-    return value.split(HudsonSettings::DELIMITER)
+  def url=(value)
+    write_attribute :url, add_last_slash(value)
   end
 
-  def self.to_value(value)
-    return "" if value == nil
-    return value.join(HudsonSettings::DELIMITER)
+  def url_for_plugin=(value)
+    write_attribute :url_for_plugin, add_last_slash(value)
+  end
+
+  def jobs=(value)
+    write_attribute :job_filter, to_value(value)
+  end
+
+  def jobs
+    to_array(read_attribute(:job_filter))
   end
 
   def use_authentication?
@@ -52,7 +54,7 @@ class HudsonSettings < ActiveRecord::Base
 
   def job_include?(other)
     return false if self.job_filter == nil
-    value = HudsonSettings.to_array( self.job_filter )
+    value = to_array( self.job_filter )
     return value.include?(other.to_s)
   end
 
@@ -61,8 +63,22 @@ class HudsonSettings < ActiveRecord::Base
     return self.url
   end
 
-  def url=(value)
-    write_attribute(:url, HudsonSettings.add_last_slash(value))
+  def add_last_slash(value)
+    added = value
+    return "" unless added
+    return "" if added.length == 0
+    added += "/" unless added.index(/\/$/)
+    return added
+  end
+
+  def to_value(value)
+    return "" if value == nil
+    return value.join(HudsonSettings::DELIMITER)
+  end
+
+  def to_array(value)
+    return [] if value == nil
+    return value.split(HudsonSettings::DELIMITER)
   end
 
 end

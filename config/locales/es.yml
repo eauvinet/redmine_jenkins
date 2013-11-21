@@ -18,9 +18,6 @@ es:
   label_health_report_test_result: InformeSalud:ResultadoPruebas
   label_database: Base de datos
   label_get_build_details: Obtener detalles de ejecución (cambios y ejecución de pruebas)
-  label_look_and_feel: Imagen y estilo (sólo iconos)
-  label_look_and_feel_hudson: Jenkins
-  label_look_and_feel_plugin: Original del plugin
   label_add_health_report: Añadir configuración de InformeSalud
   label_health_report: Informe de Salud
   label_health_report_settings: Configuración del informe de salud
@@ -36,7 +33,7 @@ es:
   label_log_rotator_num_to_keep: Num To Keep
   label_query_limit_builds_each_job: Max Number of Builds for query (Using search issues)
   label_query_limit_changesets_each_job: Max Number of Changesets for query (Using search issues)
-  label_use_url_for_plugin: Plugin uses below url for access to hudson. Don't use above. ( for user )
+  label_use_url_for_plugin: Plugin uses below url for access to Jenkins. Don't use above. ( for user )
   label_hudson_server: Server
 
   field_hudson_job: Jenkins(Job)

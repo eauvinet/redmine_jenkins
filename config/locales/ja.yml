@@ -19,9 +19,6 @@ ja:
   label_health_report_test_result: ヘルスレポート:テスト結果
   label_database: DataBase
   label_get_build_details: ビルドの詳細（変更とテスト結果）を取得する
-  label_look_and_feel: 見た目 (アイコンが変わります)
-  label_look_and_feel_hudson: Jenkins
-  label_look_and_feel_plugin: プラグイン風
   label_add_health_report: ヘルスレポートの設定を追加
   label_health_report: ヘルスレポート
   label_health_report_settings: ヘルスレポートの設定

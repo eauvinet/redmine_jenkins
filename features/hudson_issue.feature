@@ -1,6 +1,15 @@
 Feature: issue
   show hudson build results on issue
 
+  @current
+  Scenario: Use filter for hudson job name and number
+    Given Project "eCookbook" uses modules below:
+        | name       |
+        | Hudson     |
+    When I go to Issues at "eCookbook" Project
+    Then the field named "add_filter_select" should have option "Hudson(Job)" 
+     And the field named "add_filter_select" should have option "Hudson(BuildNumber)" 
+
   @javascript
   Scenario: Show job simple-ruby-application
     Given Project "eCookbook" uses modules below:

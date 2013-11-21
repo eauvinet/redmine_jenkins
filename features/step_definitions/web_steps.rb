@@ -27,6 +27,14 @@ When /^I check "([^"]*)"$/ do |field|
   end
 end
 
+When /^I choose "([^"]*)"$/ do |field|
+  choose field
+end
+
+When /^I select "([^"]*)" from "([^"]*)"$/ do |option, field|
+  select option, :from => field
+end
+
 Then /^I (should|should not) see "([^"]*)"(| within "([^"]*)")$/ do |should_or_not, content, work, area|
   area = "html" unless area
   page.within(area) do
@@ -59,6 +67,10 @@ Then /^the field named "(.*?)" should (not be|be) checked$/ do |field, be_or_not
   else
     find_field(field).should_not be_checked
   end
+end
+
+Then /^the field named "(.*?)" should have option "(.*?)"$/ do |field, value|
+  page.should have_xpath "//select[@id = '#{field}']/option[text() = '#{value}']"
 end
 
 Then /^Background image is "(.*?)"$/ do |image_url|

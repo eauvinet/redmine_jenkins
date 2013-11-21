@@ -12,14 +12,14 @@ Feature: Show and Edit Hudson Job Settings
     Then  I should see "Settings"
 
   Scenario: User can see hudson job settings.
-    When  I fill in "http://localhost:8080" for "settings[url]"
+    When  I fill in "http://localhost:8080" for "hudson_settings[url]"
      And  I click "Save"
     Then  I should see job settings:
         | Enable | Name                    | Num of Builds | Delete Old Build | Days To Keep | Num To Keep | Delete |
         | false  | simple-ruby-application | 0             |                  |              |             |        |
 
   Scenario: User can edit hudson job settings.
-    When  I fill in "http://localhost:8080" for "settings[url]"
+    When  I fill in "http://localhost:8080" for "hudson_settings[url]"
      And  I click "Save"
     When  I check "simple-ruby-application"
      And  I click "Save"

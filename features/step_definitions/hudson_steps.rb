@@ -12,7 +12,6 @@ Given /^"(.*)" project has jobs:/ do |project_name, hudson_jobs_table|
   settings.project_id = project.id
   settings.url = "http://localhost:8080/"
   settings.job_filter = jobs.join(",")
-  settings.look_and_feel = "Hudson"
   settings.save!
 
   hudson_jobs_table.hashes.each do |hash|
@@ -71,5 +70,20 @@ Then /^I should see build results in Associated revisions:$/ do |results|
   actual.concat actual_data
 
   results.diff!(actual)
+
+end
+
+Then /^the HudsonSetting model should be below:$/ do |expected_table|
+
+  expected_table.hashes.each do |expected_record|
+    project = Project.where(:name => expected_record["project"]).first
+    actual = HudsonSettings.where(:project_id => project.id).first
+
+    expected_record.each do |key, value|
+      next if key == "project"
+      actual.send(key.to_sym).should eq(value)
+    end
+
+  end
 
 end

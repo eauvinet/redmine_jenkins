@@ -1,5 +1,4 @@
-# $Id$
-= Jenkins Plugin 2.1.1
+= Jenkins Plugin 2.1.2
 
 This is a plugin collaborates with Jenkins for Redmine.
 
@@ -141,11 +140,27 @@ Use 'delete history' button in setting page.
 
 == How to Test
 
+* rename Gemfile_for_devtest to Gemfile
 * RAILS_ENV=test rake redmine_jenkins:db:test:prepare
 * RAILS_ENV=test rake redmine_jenkins:cucumber
 
 
 == Changelog (redmine_hudson)
+
+=== 2.1.2
+
+* ##1264 (Feature) use tree query parameter when plugin uses hudson api. (thanks, dborisyuk)
+* ##1184 (Feature) [Patch] Add link to hudson server in sidebar
+* ##1172 (Feature) French translation update for v2.1.1 (thanks, Fabien Crespel)
+* ##1279 (Defect)  Undefined method `add_available_filter' error with Redmine 2.2.1
+* ##1258 (Defect)  no issue filter item for hudson.
+* ##1257 (Defect)  gem 'simplecov' version is conflicted with redmine_backlogs
+* ##1255 (Defect)  plugin occurred error, when i choosed 'Plugin' from "look and feel"
+* ##1253 (Defect)  Plugin can't show build result on issue page, when project uses git
+* ##1252 (Defect)  cucumber failed, when i used latest gems.
+* ##1212 (Defect)  Gemfile conflicts with Redmine 2.3.0
+* ##1188 (Defect)  occurred internal error, when select jobs and save settings. (thanks, NAITHO and Akiko Takano)
+
 
 === 2.1.1
 

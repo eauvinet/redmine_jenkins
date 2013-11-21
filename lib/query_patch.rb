@@ -55,7 +55,13 @@ module RedmineHudson
         hudson_filters
 
         @hudson_filters.each do |filter|
-          @available_filters[filter.name] = filter.available_values
+
+          filter.available_values[:name] = I18n.t("field_#{filter.name}")
+          if self.respond_to?(:add_available_filter)
+            add_available_filter filter.name, filter.available_values
+          else
+            @available_filters[filter.name] = filter.available_values
+          end
         end
         return @available_filters
       end

@@ -17,9 +17,9 @@ Feature: index
     When I click "confirm settings"
     Then I should see "Settings"
 
-    When I fill in "http://localhost:8080" for "settings[url]"
+    When I fill in "http://localhost:8080" for "hudson_settings[url]"
      And I click "Save"
-    Then the field named "settings[url]" should contain "http://localhost:8080/"
+    Then the field named "hudson_settings[url]" should contain "http://localhost:8080/"
 
     When I go to Hudson at "eCookbook" Project
     Then I should see "No Jobs"

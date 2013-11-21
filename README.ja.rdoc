@@ -1,5 +1,4 @@
-# $Id$
-= Jenkins Plugin 2.1.1
+= Jenkins Plugin 2.1.2
 
 Redmie を Jenkins と連携させるためのプラグインです。
 
@@ -8,7 +7,7 @@ Redmie を Jenkins と連携させるためのプラグインです。
 継続ビルドのためのアプリケーションです。
 簡単インストール、設定、親切なUIが特徴です。（他にも良い点は沢山ありますよ！）
 詳しくは {Meet Jenkins}[http://wiki.jenkins-ci.org/display/JENKINS/Meet+Jenkins]
-作者の川口さんが書かれた紹介記事もあります。 
+作者の川口さんが書かれた紹介記事もあります。
 
 * {Hudsonを使ったアジャイルな開発入門}[http://gihyo.jp/dev/feature/01/hudson/0001]
 
@@ -88,7 +87,7 @@ rake タスクを使って情報を取得する場合は、必ず 自動取得�
 
 [de.yml] Jens Goldhammer, Florian Bartels
 [es.yml] juancayetano.delgado
-[fr.yml] Francois-Xavier CAUVIN
+[fr.yml] Francois-Xavier CAUVIN, Fabien Crespel
 [hu.yml] Péter Major
 [it.yml] Marco Bazzani
 [ru.yml] Eugene Sirotkin.
@@ -139,11 +138,27 @@ rake タスクを使って情報を取得する場合は、必ず 自動取得�
 
 == テストの方法
 
+* Gemfile_for_devtest を Gemfile にする
 * RAILS_ENV=test rake redmine_jenkins:db:test:prepare
 * RAILS_ENV=test rake redmine_jenkins:cucumber
 
 
 == 変更履歴 (redmine_hudson)
+
+=== 2.1.2
+
+* ##1264 (Feature) tree query parameter を使って高速化 (thanks, dborisyuk)
+* ##1184 (Feature) スライドバーに hudson へのリンクを追加
+* ##1172 (Feature) フランス語の言語ファイル更新 (thanks, Fabien Crespel)
+* ##1279 (Defect)  エラー "Undefined method `add_available_filter'" が Redmine 2.2.1 で発生する
+* ##1258 (Defect)  チケットのフィルタで Hudson プラグインに関する項目が選択できない
+* ##1257 (Defect)  gem 'simplecov' のバージョンが redmine_backlogs と衝突する
+* ##1255 (Defect)  見た目で 'Pluginオリジナル' を選択するとエラーになる
+* ##1253 (Defect)  git を利用していると、チケットに関連するビルドが表示されない
+* ##1252 (Defect)  最新の gem を使うと cucumber の実行に失敗する
+* ##1212 (Defect)  いくつかの gem のバージョンが Redmine 2.3.0 と衝突する
+* ##1188 (Defect)  ジョブを選択して保存すると、internal error が発生する (thanks, NAITHO and Akiko Takano)
+
 
 === 2.1.1
 

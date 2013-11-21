@@ -8,7 +8,7 @@ Redmine::Plugin.register :redmine_jenkins do
   author 'Toshiyuki Ando r-labs'
   url "http://www.r-labs.org/repositories/show/hudson" if respond_to?(:url)
   description 'This is a Jenkins plugin for Redmine'
-  version '2.1.1'
+  version '2.1.2'
   requires_redmine :version_or_higher => '2.1.0'
 
   project_module :jenkins do
