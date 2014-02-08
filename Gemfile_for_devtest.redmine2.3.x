@@ -3,7 +3,7 @@ group :test do
   gem "rspec-rails", "~> 2.11.0"
   gem 'cucumber'
   gem 'cucumber-rails'
-  gem 'capybara', '~> 2.1.0'
+  gem 'capybara', '~> 2.0.0'
   gem 'selenium-webdriver', '2.35.1'
   gem 'database_cleaner'
 
