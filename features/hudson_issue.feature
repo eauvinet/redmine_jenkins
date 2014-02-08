@@ -28,7 +28,7 @@ Feature: issue
         | revision | job name                | build number | build result  | build url                                           | finished at        |
         | 2        | simple-ruby-application | 5            | SUCCESS       | http://localhost:8080/job/simple-ruby-application/5 | less than a minute |
 
-  @javascript @current
+  @javascript
   Scenario: Show job simple-ruby-application in russian
     Given Project "eCookbook" uses modules below:
         | name       |
