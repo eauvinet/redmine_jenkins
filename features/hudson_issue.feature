@@ -1,7 +1,6 @@
 Feature: issue
   show hudson build results on issue
 
-  @current
   Scenario: Use filter for hudson job name and number
     Given Project "eCookbook" uses modules below:
         | name       |

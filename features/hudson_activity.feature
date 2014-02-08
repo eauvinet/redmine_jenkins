@@ -1,7 +1,7 @@
 Feature: project activity
   show hudson build results on activity
 
-  @javascript @current
+  @javascript
   Scenario: Show build results on activity
     Given "Developer" has a permission below:
         | permissions         |
