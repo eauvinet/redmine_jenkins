@@ -60,8 +60,20 @@ Given /^I am logged in as "([^"]*)" with password "([^"]*)"$/ do |login_name, pa
      And I fill in "#{login_name}" for "Login"
      And I fill in "#{password}" for "Password"
      And I click "Login »"
-    Then I should see "My page"
   }
+
+  RedmineHudson::Cucumber::Support::set_current_user(login_name)
+  steps %Q{
+    Then I should see "#{I18n.t(:label_my_page)}"
+  }
+end
+
+Given /^"(.*)" joins project "(.*)" as "(.*)"$/ do |login, project_name, role_name|
+  project = Project.find_by_name(project_name)
+  member = Member.new
+  member.user_id = User.find_by_login(login)
+  member.role_ids = [Role.find_by_name(role_name).id]
+  project.members << member
 end
 
 Given /Issue #(.*) is related to revisions "(.*)"/ do |issue_no, revisions|
@@ -86,6 +98,7 @@ When /^I check "(.*?)" Activity$/ do | activity_type |
 end
 
 Then /^I should see build results in Activity:$/ do |results|
+
   actual = [["activity", "activity url", "activity detail", "activity author"]]
 
   actual_data = all(:xpath, "//dt[contains(@class,'hudson-build')]").map do |dt|

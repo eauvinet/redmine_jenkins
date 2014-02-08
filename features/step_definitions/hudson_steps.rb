@@ -56,9 +56,12 @@ Given /^Job "(.*)" has build results:/ do |job_name, build_results_table|
 end
 
 Then /^I should see build results in Associated revisions:$/ do |results|
+  label_revision = I18n.t(:label_revision)
+
   actual = [["revision","job name","build number","build result","build url","finished at"]]
   actual_data = all("#issue-changesets div.changeset").map do |changeset|
-    revision = changeset.find(:xpath, "p/a[contains(@title, 'Revision')]")["title"][/Revision (.*)/, 1]
+    revision = changeset.find(:xpath, "p/a[contains(text(), '#{label_revision}')]")["text"][/#{label_revision} (.*)/, 1]
+
     build_result = changeset.find("span.result").text
     job_name, build_number = changeset.find("a.built-by").native.text.split(" #")
     build_url = changeset.find("a.built-by")["href"]

@@ -1,12 +1,16 @@
 (function(jQuery) {
   jQuery.fn.buildResultAppender = function(options) {
     var options = jQuery.extend({
+      label_revision: '', 
       revisions: {}
     }, options);
 
     jQuery(document).ready(function() {
       jQuery.each(options.revisions, function(revision, results) {
-        changeset_refs = jQuery("div#issue-changesets div.changeset:has(a[title^='Revision " + revision + "']) div.wiki");
+        anchor = jQuery("div#issue-changesets").find("a").filter(function(){
+            return jQuery(this).text().match(options.label_revision + " " + revision);
+          }).get(0);
+        changeset_refs = jQuery(anchor).parent().next("div.wiki");
         message = jQuery("<p/>", {
                           class: 'hudson-build-results'
                         });
