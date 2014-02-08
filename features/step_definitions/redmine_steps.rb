@@ -69,11 +69,16 @@ Given /^I am logged in as "([^"]*)" with password "([^"]*)"$/ do |login_name, pa
 end
 
 Given /^"(.*)" joins project "(.*)" as "(.*)"$/ do |login, project_name, role_name|
+  
   project = Project.find_by_name(project_name)
-  member = Member.new
-  member.user_id = User.find_by_login(login)
-  member.role_ids = [Role.find_by_name(role_name).id]
-  project.members << member
+
+  unless project.users.find {|user| user.login == login} 
+    member = Member.new
+    member.user_id = User.find_by_login(login)
+    member.role_ids = [Role.find_by_name(role_name).id]
+    project.members << member
+  end
+
 end
 
 Given /Issue #(.*) is related to revisions "(.*)"/ do |issue_no, revisions|
