@@ -36,13 +36,11 @@ Feature: index
       | 安定したビルド: 最近の5個中、2個ビルドに失敗しました。 59% |
       | Rcov coverage: Code coverage 70.0%(70.0) 87%               |
 
-  @current
   Scenario: Plugin can show hudson image on background
     Given HudsonApi.ci_server_name returns hudson
     When  I go to Hudson at "eCookbook" Project
     Then  Background image is "http://localhost:8080/images/hudson.png"
 
-  @current
   Scenario: Plugin can show jenkins image on background
     Given HudsonApi.ci_server_name returns jenkins
     When  I go to Hudson at "eCookbook" Project

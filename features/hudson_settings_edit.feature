@@ -41,7 +41,7 @@ Feature: Show and Edit hudson Basic Settings
        | project   | auth_user | auth_password |
        | eCookbook | test      | pass          |
 
-  @javascript @current
+  @javascript
   Scenario: don't update auth_password, when field isnot modified.
     When I go to HudsonSettings at "eCookbook" Project
     Then I should see "Settings"

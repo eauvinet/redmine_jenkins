@@ -51,7 +51,7 @@ class HudsonApplicationHooks < Redmine::Hook::ViewListener
     o << "//<!--" + "\n"
     o << "$(document).ready(function() {" + "\n"
     o << build_results
-    o << "$('body').buildResultAppender({revisions: revisions});" + "\n"
+    o << "$('body').buildResultAppender({label_revision: '#{I18n.t(:label_revision)}', revisions: revisions});" + "\n"
     o << "});" + "\n"
     o << "//-->" + "\n"
     o << "</script>" + "\n"
