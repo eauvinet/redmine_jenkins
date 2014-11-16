@@ -8,7 +8,7 @@
     jQuery(document).ready(function() {
       jQuery.each(options.revisions, function(revision, results) {
         anchor = jQuery("div#issue-changesets").find("a").filter(function(){
-            return jQuery(this).text().match(options.label_revision + " " + revision);
+            return jQuery(this).attr('href').match('.*/' + revision);
           }).get(0);
         changeset_refs = jQuery(anchor).parent().next("div.wiki");
         message = jQuery("<p/>", {

@@ -152,8 +152,13 @@ class HudsonBuild < ActiveRecord::Base
   def get_revision_no(elem)
     retval = get_element_value(elem, "revision")
     return retval if retval != ""
+    retval = get_element_value(elem, "commitId") # for Git Plugin
+    return retval if retval != ""
     retval = get_element_value(elem, "rev") # for mercurial or hudson 1.340
-    return retval
+    return retval if retval != ""
+
+    Rails.logger.warn('No revision found in element: ' + elem.to_s)
+    return ''
   end
 
 end
