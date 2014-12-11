@@ -1,15 +1,13 @@
 (function(jQuery) {
   jQuery.fn.buildResultAppender = function(options) {
     var options = jQuery.extend({
-      label_revision: '', 
+      label_revision: '',
       revisions: {}
     }, options);
 
     jQuery(document).ready(function() {
       jQuery.each(options.revisions, function(revision, results) {
-        anchor = jQuery("div#issue-changesets").find("a").filter(function(){
-            return jQuery(this).attr('href').match('.*/' + revision);
-          }).get(0);
+        anchor = jQuery("div#issue-changesets a[href*='/" + revision + "']")[0];
         changeset_refs = jQuery(anchor).parent().next("div.wiki");
         message = jQuery("<p/>", {
                           class: 'hudson-build-results'
