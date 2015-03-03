@@ -26,7 +26,7 @@ class HudsonBuild < ActiveRecord::Base
   acts_as_activity_provider :type => 'hudson',
                              :timestamp => "#{HudsonBuild.table_name}.finished_at",
                              :author_key => "#{HudsonBuild.table_name}.caused_by",
-                             :find_options => {:include => {:job => :project}},
+                             :scope => preload(:job => :project),
                              :permission => :view_hudson
 
   # 活動の表示内容を規定
@@ -196,10 +196,9 @@ end
 
 def HudsonBuild.find_by_changeset(changeset)
   return HudsonNoBuild.new() unless changeset
-  retval = HudsonBuild.find(:all,
-                            :order=>"#{HudsonBuild.table_name}.number",
-                            :conditions=> ["#{HudsonBuildChangeset.table_name}.repository_id = ? and #{HudsonBuildChangeset.table_name}.revision = ?", changeset.repository.id, changeset.revision],
-                            :joins=> "INNER JOIN #{HudsonBuildChangeset.table_name} ON #{HudsonBuildChangeset.table_name}.hudson_build_id = #{HudsonBuild.table_name}.id")
+  retval = HudsonBuild.where(["#{HudsonBuildChangeset.table_name}.repository_id = ? and #{HudsonBuildChangeset.table_name}.revision = ?", changeset.repository.id, changeset.revision]).
+                       order("#{HudsonBuild.table_name}.number").
+                       joins("INNER JOIN #{HudsonBuildChangeset.table_name} ON #{HudsonBuildChangeset.table_name}.hudson_build_id = #{HudsonBuild.table_name}.id")
   return retval
 end
 

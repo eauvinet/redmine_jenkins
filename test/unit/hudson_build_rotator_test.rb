@@ -17,7 +17,7 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
   def test_execute_both
 
     data_job = hudson_jobs(:simple_ruby_application)
-    job = HudsonJob.find(data_job.id, :include => HudsonJobSettings)
+    job = HudsonJob.find(data_job.id).includes(HudsonJobSettings)
 
     HudsonBuild.delete_all
 
@@ -38,7 +38,7 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
     count = 0
     oldest_date_remain = curdate - job.job_settings.build_rotator_days_to_keep
     oldest_date_remain = DateTime.new(oldest_date_remain.year, oldest_date_remain.month, oldest_date_remain.day, 0, 0, 0)
-    HudsonBuild.find(:all, :conditions => ["hudson_job_id = ?", data_job.id]).each do |build|
+    HudsonBuild.where(["hudson_job_id = ?", data_job.id]).each do |build|
       count += 1 if build.number.to_i >= 26 && build.finished_at >= oldest_date_remain
     end
     assert_equal 5, count
@@ -48,7 +48,7 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
   def test_execute_enable_num_to_keep
 
     data_job = hudson_jobs(:have_white_space)
-    job = HudsonJob.find(data_job.id, :include => HudsonJobSettings)
+    job = HudsonJob.find(data_job.id).includes(HudsonJobSettings)
 
     HudsonBuild.delete_all
 
@@ -66,7 +66,7 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
     assert_equal 35, HudsonBuild.count
     assert_equal 30, HudsonBuild.count_by_sql(["select count(*) from #{HudsonBuild.table_name} where hudson_job_id = ?", data_job.id + 1])
     count = 0
-    HudsonBuild.find(:all, :conditions => ["hudson_job_id = ?", data_job.id]).each do |build|
+    HudsonBuild.where(["hudson_job_id = ?", data_job.id]).each do |build|
       count += 1 if build.number.to_i >= 26
     end
     assert_equal 5, count
@@ -76,7 +76,7 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
   def test_execute_enable_days_to_keep
 
     data_job = hudson_jobs(:maven_application)
-    job = HudsonJob.find(data_job.id, :include => HudsonJobSettings)
+    job = HudsonJob.find(data_job.id).includes(HudsonJobSettings)
 
     target = HudsonBuildRotator.new(job.job_settings)
 
@@ -97,7 +97,7 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
     count = 0
     oldest_date_remain = curdate - job.job_settings.build_rotator_days_to_keep
     oldest_date_remain = DateTime.new(oldest_date_remain.year, oldest_date_remain.month, oldest_date_remain.day, 0, 0, 0)
-    HudsonBuild.find(:all, :conditions => ["hudson_job_id = ?", data_job.id]).each do |build|
+    HudsonBuild.where(["hudson_job_id = ?", data_job.id]).each do |build|
       count += 1 if build.finished_at >= oldest_date_remain
     end
     assert_equal 20, count
@@ -107,7 +107,7 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
   def test_self_can_store_should_return_false
 
     data_job = hudson_jobs(:simple_ruby_application)
-    job = HudsonJob.find(data_job.id, :include => HudsonJobSettings)
+    job = HudsonJob.find(data_job.id).includes(HudsonJobSettings)
 
     HudsonBuild.delete_all
 
@@ -133,7 +133,7 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
   def test_self_can_store_should_return_true
 
     data_job = hudson_jobs(:simple_ruby_application)
-    job = HudsonJob.find(data_job.id, :include => HudsonJobSettings)
+    job = HudsonJob.find(data_job.id).includes(HudsonJobSettings)
 
     HudsonBuild.delete_all
 

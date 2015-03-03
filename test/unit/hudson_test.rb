@@ -299,7 +299,7 @@ class HudsonTest < ActiveSupport::TestCase
   end
 
   def test_hudson_find_all
-    items = Hudson.find(:all)
+    items = Hudson.all
 
     assert_equal items.length, 5
     

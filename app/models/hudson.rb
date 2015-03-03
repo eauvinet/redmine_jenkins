@@ -108,10 +108,7 @@ private
   end
 
   def find_jobs
-    @jobs = HudsonJob.find :all,
-                           :order => "#{HudsonJob.table_name}.name",
-                           :conditions => ["#{HudsonJob.table_name}.project_id = ?", @project_id],
-                           :include => :job_settings
+    @jobs = HudsonJob.where(:project_id => @project_id).order(:name).includes(:job_settings)
   end
 
 end
@@ -120,13 +117,13 @@ def Hudson.find(*args)
   case args.first
     when :all   then
       retval = []
-      HudsonSettings.find(*args).each do |settings|
+      HudsonSettings.where(*args).each do |settings|
         next unless Project.find_by_id(settings.project_id)
         retval << Hudson.new(settings.project_id)
       end
       return retval
     else
-      settings = HudsonSettings.find(*args)
+      settings = HudsonSettings.where(*args)
       return nil unless Project.find_by_id(settings.project_id)
       retval = Hudson.new(settings.project_id)
       return retval
@@ -139,8 +136,7 @@ def Hudson.find_by_project_id(project_id)
 end
 
 def Hudson.fetch
-  hudsons = find(:all)
-  hudsons.each do |hudson|
+  all.each do |hudson|
     hudson.fetch
     next if hudson.hudson_api_errors.empty?
     hudson.hudson_api_errors.each do |error|

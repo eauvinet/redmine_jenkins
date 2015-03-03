@@ -25,7 +25,7 @@ class HudsonSettings < ActiveRecord::Base
   end
 
   def self.find_by_project_id(project_id)
-    retval = HudsonSettings.find(:first,  :conditions => "project_id = #{project_id}")
+    retval = HudsonSettings.find_by(:project_id => project_id)
     retval = HudsonSettings.new() if retval == nil
     return retval
   end

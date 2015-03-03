@@ -93,7 +93,7 @@ module RedmineHudson
           builds = find_hudson_builds(job)
           next if builds.length == 0
           cond_builds = builds.collect{|build| "#{connection.quote_string(build.id.to_s)}"}.join(",")
-          retval += HudsonBuildChangeset.find(:all, :conditions => ["#{HudsonBuildChangeset.table_name}.hudson_build_id in (#{cond_builds})"], :order => "#{HudsonBuildChangeset.table_name}.id DESC", :limit => Hudson.query_limit_changesets_each_job)
+          retval += HudsonBuildChangeset.where(["#{HudsonBuildChangeset.table_name}.hudson_build_id in (#{cond_builds})"]).order("#{HudsonBuildChangeset.table_name}.id DESC").limit(Hudson.query_limit_changesets_each_job)
         end
 
         return retval
@@ -109,7 +109,7 @@ module RedmineHudson
           cond_builds = "#{HudsonBuild.table_name}.id > 0" #always true
         end
 
-        return HudsonBuild.find(:all, :conditions => ["#{HudsonBuild.table_name}.hudson_job_id = ? and #{cond_builds}", job.id], :order => "#{HudsonBuild.table_name}.number DESC", :limit => Hudson.query_limit_builds_each_job)
+        return HudsonBuild.where(["#{HudsonBuild.table_name}.hudson_job_id = ? and #{cond_builds}", job.id]).order("#{HudsonBuild.table_name}.number DESC").limit(Hudson.query_limit_builds_each_job)
       end
 
       def find_hudson_jobs
@@ -120,7 +120,7 @@ module RedmineHudson
         else
           cond_jobs = "#{HudsonJob.table_name}.project_id = #{project.id}"
         end
-        return HudsonJob.find(:all, :conditions => cond_jobs)
+        return HudsonJob.where(cond_jobs)
       end
 
 
@@ -194,8 +194,8 @@ module RedmineHudson
 
         @hudson_filters << HudsonQueryFilter.new("hudson_job",
                                 { :type => :list_optional, :order => @available_filters.size + 1,
-                                  :values => HudsonJob.find(:all, :conditions => ["#{HudsonJob.table_name}.project_id = ?", project.id],
-                                              :order => "#{HudsonJob.table_name}.name").collect {|job|
+                                  :values => HudsonJob.where(["#{HudsonJob.table_name}.project_id = ?", project.id]).
+                                                       order("#{HudsonJob.table_name}.name").collect {|job|
                                               next unless hudson.settings.job_include?(job.name)
                                               [job.name, job.id.to_s]
                                             }

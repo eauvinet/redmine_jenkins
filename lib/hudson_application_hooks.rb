@@ -67,7 +67,7 @@ class HudsonApplicationHooks < Redmine::Hook::ViewListener
 
       o << "revisions['#{changeset.revision}'] = [];\n"
       builds.each do |build|
-        job = HudsonJob.where(:id => build.hudson_job_id).first()
+        job = HudsonJob.find_by(:id => build.hudson_job_id)
         finished_at_tag = link_to(distance_of_time_in_words(Time.now, build.finished_at),
                                   {:controller => 'activities', :action => 'index', :id => job.project.id, :from => build.finished_at.to_date},
                                   :title => format_time(build.finished_at))

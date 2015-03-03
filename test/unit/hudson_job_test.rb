@@ -110,7 +110,7 @@ class HudsonSettingsTest < ActiveSupport::TestCase
 
     job.destroy_builds
 
-    target = HudsonBuild.find(:all)
+    target = HudsonBuild.all
 
     assert_equal 1, target.length
     assert_equal 2, target[0].id

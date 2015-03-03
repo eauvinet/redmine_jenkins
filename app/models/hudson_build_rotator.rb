@@ -28,9 +28,9 @@ def HudsonBuildRotator.can_store?(job, number)
   cond = HudsonBuildRotator.create_cond_to_delete(job_settings)
 
   # get oldest data
-  oldest = HudsonBuild.find(:first,
-                            :conditions => ["#{HudsonBuild.table_name}.hudson_job_id = ? and #{HudsonBuild.table_name}.id not in (select #{HudsonBuild.table_name}.id from #{HudsonBuild.table_name} where #{cond})", job.id],
-                            :order => "#{HudsonBuild.table_name}.number")
+  oldest = HudsonBuild.where(["#{HudsonBuild.table_name}.hudson_job_id = ? and #{HudsonBuild.table_name}.id not in \
+                              (select #{HudsonBuild.table_name}.id from #{HudsonBuild.table_name} where #{cond})", job.id]).
+                       order("#{HudsonBuild.table_name}.number").first
 
   return true unless oldest
 
@@ -67,12 +67,14 @@ def HudsonBuildRotator.create_cond_num_to_delete(job_id, num_to_keep)
 
   # because, MySQL can't use limit in subquery
   # http://dev.mysql.com/doc/refman/5.0/en/subquery-errors.html
-  build_count = HudsonBuild.count(:conditions => "#{HudsonBuild.table_name}.hudson_job_id = #{job_id}")
+  build_count = HudsonBuild.where(["#{HudsonBuild.table_name}.hudson_job_id = ?", job_id]).count
   delete_count = build_count - num_to_keep
 
   return "" unless delete_count > 0
 
-  delete_builds = HudsonBuild.find(:all, :conditions => "#{HudsonBuild.table_name}.hudson_job_id = #{job_id}", :order => "#{HudsonBuild.table_name}.number ASC", :limit => delete_count, :offset => delete_count - 1)
+  delete_builds = HudsonBuild.where(["#{HudsonBuild.table_name}.hudson_job_id = ?", job_id]).
+                              order("#{HudsonBuild.table_name}.number ASC").
+                              limit(delete_count).offset(delete_count - 1)
   return "" unless delete_builds.length > 0
 
   return "#{HudsonBuild.table_name}.number <= #{delete_builds[0].number}"
