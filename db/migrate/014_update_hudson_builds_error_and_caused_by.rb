@@ -2,8 +2,8 @@ require File.join(File.dirname(__FILE__), "../../app/models", 'hudson_build')
 
 class UpdateHudsonBuildsErrorAndCausedBy < ActiveRecord::Migration
   def self.up
-    HudsonBuild.update_all "error = ''", "error IS NULL"
-    HudsonBuild.update_all "caused_by = 1", "caused_by IS NULL"
+    HudsonBuild.where("error IS NULL").update_all("error = ''")
+    HudsonBuild.where("caused_by IS NULL").update_all("caused_by = 1")
   end
 
   def self.down

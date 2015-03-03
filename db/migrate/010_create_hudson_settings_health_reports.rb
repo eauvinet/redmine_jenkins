@@ -5,8 +5,7 @@ class CreateHudsonSettingsHealthReports < ActiveRecord::Migration
       t.column :keyword, :string
       t.column :url_format, :string
     end
-    settings = HudsonSettings.find(:all)
-    settings.each { |setting|
+    HudsonSettings.all.each { |setting|
       HudsonSettingsHealthReport.create(:hudson_settings_id => setting.id, 
                                         :keyword => setting.health_report_build_stability,
                                         :url_format => "${hudson.url}job/${job.name}/lastBuild/") if setting.health_report_build_stability != nil && setting.health_report_build_stability != ""

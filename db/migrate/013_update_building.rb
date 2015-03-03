@@ -2,12 +2,12 @@ require File.join(File.dirname(__FILE__), '../../app/models', 'hudson_build')
 
 class UpdateBuilding < ActiveRecord::Migration
   def self.up
-    HudsonBuild.update_all "building = 'true'", "building = 't'"
-    HudsonBuild.update_all "building = 'false'", "building = 'f'"
+    HudsonBuild.where("building = 't'").update_all("building = 'true'")
+    HudsonBuild.where("building = 'f'").update_all("building = 'false'")
   end
 
   def self.down
-    HudsonBuild.update_all "building = 't'", "building = 'true'"
-    HudsonBuild.update_all "building = 'f'", "building = 'false'"
+    HudsonBuild.where("building = 'true'").update_all("building = 't'")
+    HudsonBuild.where("building = 'false'").update_all("building = 'f'")
   end
 end
