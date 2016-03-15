@@ -26,8 +26,11 @@ class HudsonBuild < ActiveRecord::Base
   acts_as_activity_provider :type => 'hudson',
                              :timestamp => "#{HudsonBuild.table_name}.finished_at",
                              :author_key => "#{HudsonBuild.table_name}.caused_by",
-                             :scope => preload(:job => :project),
-                             :permission => :view_hudson
+                             :permission => :view_hudson,
+                             :scope => select("#{HudsonBuild.table_name}.*").
+                                      joins("LEFT JOIN #{HudsonJob.table_name} ON #{HudsonJob.table_name}.id = #{HudsonBuild.table_name}.hudson_job_id " +
+                                            "LEFT JOIN #{Project.table_name} ON #{HudsonJob.table_name}.project_id = #{Project.table_name}.id")
+                             
 
   # 活動の表示内容を規定
   acts_as_event :title => Proc.new {|o| 
@@ -170,7 +173,7 @@ def HudsonBuild.count_of(job)
 end
 
 def HudsonBuild.parse_rss(entry)
-  params = get_element_value(entry, "title").scan(/(.*)#(.*)\s\((.*)\)/)[0]
+  params = get_element_value(entry, "title").scan(/(.*)#([0-9]*)\s\((.*)\)/)[0]
   retval = {}
   retval[:name] = params[0].strip
   retval[:number] = params[1]
