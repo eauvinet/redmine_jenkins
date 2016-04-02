@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require File.join( File.dirname( __FILE__ ), 'hudson_build' )
 require File.join( File.dirname( __FILE__ ), 'hudson_api_error' )
 require File.join( File.dirname( __FILE__ ), 'hudson_exceptions' )
 
